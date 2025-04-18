@@ -1,0 +1,25 @@
+GET http://localhost:5000/cars
+
+### 
+GET http://localhost:5000/orders
+### 
+POST http://localhost:5000/orders
+Content-Type: application/json
+
+{
+  "client": "cr1stal",
+  "carId": "faa48f1f-98d9-4493-ac81-fabfbf7bbb34",
+  "status": "created"
+}
+
+### 
+PUT http://localhost:5000/orders
+Content-Type: application/json
+
+{
+  "price": 377707,
+  "owner": "cr1stal_fa1ry_"
+}
+
+###
+DELETE  http://localhost:5000/orders

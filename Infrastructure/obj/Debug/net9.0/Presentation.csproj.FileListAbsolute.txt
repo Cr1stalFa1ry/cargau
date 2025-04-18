@@ -1,0 +1,11 @@
+C:\Users\User\Desktop\cargau\Infrastructure\bin\Debug\net9.0\Presentation.deps.json
+C:\Users\User\Desktop\cargau\Infrastructure\bin\Debug\net9.0\Presentation.dll
+C:\Users\User\Desktop\cargau\Infrastructure\bin\Debug\net9.0\Presentation.pdb
+C:\Users\User\Desktop\cargau\Infrastructure\obj\Debug\net9.0\Presentation.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\cargau\Infrastructure\obj\Debug\net9.0\Presentation.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\cargau\Infrastructure\obj\Debug\net9.0\Presentation.AssemblyInfo.cs
+C:\Users\User\Desktop\cargau\Infrastructure\obj\Debug\net9.0\Presentation.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\cargau\Infrastructure\obj\Debug\net9.0\Presentation.dll
+C:\Users\User\Desktop\cargau\Infrastructure\obj\Debug\net9.0\refint\Presentation.dll
+C:\Users\User\Desktop\cargau\Infrastructure\obj\Debug\net9.0\Presentation.pdb
+C:\Users\User\Desktop\cargau\Infrastructure\obj\Debug\net9.0\ref\Presentation.dll

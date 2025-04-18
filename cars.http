@@ -1,0 +1,29 @@
+GET http://localhost:5000/cars
+
+### "a867246d-d2dc-41e6-9ea9-40c370f31b94", 
+### lada: 3f56d605-0bd9-41cb-a6f5-a762f915a026
+### dodge: faa48f1f-98d9-4493-ac81-fabfbf7bbb34
+GET http://localhost:5000/cars/3f56d605-0bd9-41cb-a6f5-a762f915a026
+
+### 
+POST http://localhost:5000/cars
+Content-Type: application/json
+
+{
+  "brand": "dodge",
+  "model": "ram",
+  "price": 15569000,
+  "owner": "cr1stal_fa1ry_"
+}
+
+### 
+PUT http://localhost:5000/cars/3f56d605-0bd9-41cb-a6f5-a762f915a026
+Content-Type: application/json
+
+{
+  "price": 377707,
+  "owner": "cr1stal_fa1ry_"
+}
+
+###
+DELETE  http://localhost:5000/cars/a867246d-d2dc-41e6-9ea9-40c370f31b94
