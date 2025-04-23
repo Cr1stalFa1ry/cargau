@@ -22,6 +22,21 @@ namespace db.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("OrderEntityServiceEntity", b =>
+                {
+                    b.Property<Guid>("OrdersId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("SelectedServicesId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("OrdersId", "SelectedServicesId");
+
+                    b.HasIndex("SelectedServicesId");
+
+                    b.ToTable("OrderEntityServiceEntity");
+                });
+
             modelBuilder.Entity("db.Entities.CarEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -32,21 +47,23 @@ namespace db.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DateRelease")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Owner")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
+                    b.Property<string>("YearRelease")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Cars");
                 });
@@ -60,61 +77,54 @@ namespace db.Migrations
                     b.Property<Guid>("CarId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Client")
-                        .HasColumnType("text");
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int?>("UserEntityId")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
 
-                    b.HasIndex("UserEntityId");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("db.Entities.ServiceEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("NameService")
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("OrderEntityId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Summary")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderEntityId");
 
                     b.ToTable("Services");
                 });
 
             modelBuilder.Entity("db.Entities.UserEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -133,35 +143,60 @@ namespace db.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("OrderEntityServiceEntity", b =>
+                {
+                    b.HasOne("db.Entities.OrderEntity", null)
+                        .WithMany()
+                        .HasForeignKey("OrdersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("db.Entities.ServiceEntity", null)
+                        .WithMany()
+                        .HasForeignKey("SelectedServicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("db.Entities.CarEntity", b =>
+                {
+                    b.HasOne("db.Entities.UserEntity", "Owner")
+                        .WithMany("Cars")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
+                });
+
             modelBuilder.Entity("db.Entities.OrderEntity", b =>
                 {
                     b.HasOne("db.Entities.CarEntity", "Car")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("db.Entities.UserEntity", null)
+                    b.HasOne("db.Entities.UserEntity", "Client")
                         .WithMany("Orders")
-                        .HasForeignKey("UserEntityId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Car");
+
+                    b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("db.Entities.ServiceEntity", b =>
+            modelBuilder.Entity("db.Entities.CarEntity", b =>
                 {
-                    b.HasOne("db.Entities.OrderEntity", null)
-                        .WithMany("SelectedServices")
-                        .HasForeignKey("OrderEntityId");
-                });
-
-            modelBuilder.Entity("db.Entities.OrderEntity", b =>
-                {
-                    b.Navigation("SelectedServices");
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("db.Entities.UserEntity", b =>
                 {
+                    b.Navigation("Cars");
+
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618

@@ -4,11 +4,11 @@ namespace db.Entities;
 
 public class ServiceEntity
 {
-    public int Id { get; set; }
-    public string? NameService { get; set; }
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
     public decimal Price { get; set; }
-    public string? Summary { get; set; }
-    //public List<OrderEntity> Orders { get; set; } = [];
+    public string Summary { get; set; } = string.Empty;
+    public List<OrderEntity> Orders { get; set; } = [];
 
     // надо добавить сущность заказа, так сказать ссылку на заказ
 

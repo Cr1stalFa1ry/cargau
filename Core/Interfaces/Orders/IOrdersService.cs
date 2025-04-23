@@ -6,7 +6,7 @@ public interface IOrdersService
 {
     Task<List<Order>> Get();
     Task<Order> GetById(Guid id);
-    Task<Guid> Add(string client, Guid carId, string status);
-    Task<bool> Update(Guid id, string client, Guid carId, string status);
+    Task<Guid> Add(Guid clientId, Guid carId);
+    Task<bool> Update(Guid id, Guid clientId, Guid carId, OrderStatus status);
     Task<bool> Delete(Guid id);
 }

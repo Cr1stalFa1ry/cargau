@@ -1,8 +1,6 @@
-using Core.Models;
 using Core.Interfaces.Orders;
 using db.Context;
 using db.Entities;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 
 namespace db.Repositories;
@@ -22,7 +20,7 @@ public class OrdersRepository : IOrdersRepository
             .ToListAsync();
 
         var orders = orderEntities
-            .Select(o => Order.Create(o.Id, o.Client, o.CarId, o.Status, o.Date))
+            .Select(order => Order.Create(order.Id, order.ClientId, order.CarId, order.Status, order.Date))
             .ToList();
 
         return orders;
@@ -34,8 +32,13 @@ public class OrdersRepository : IOrdersRepository
             .AsNoTracking()
             .FirstOrDefaultAsync(order => order.Id == id);
 
-        // надо сделать autoMapping, по крайней мере попробовать что это такое, и с чем это едят
-        return Order.Create(order.Id, order.Client, order.CarId, order.Status, order.Date);
+        if (order == null)
+        {
+            throw new ArgumentException("order not found");
+        }
+
+        // надо сделать autoMapping, по крайней мере попробовать что это такое
+        return Order.Create(order.Id, order.ClientId, order.CarId, order.Status, order.Date);
     }
 
     public async Task Add(Order order)
@@ -50,12 +53,31 @@ public class OrdersRepository : IOrdersRepository
         //    })
         //    .ToList();
 
+        var client = await _dbContext.Users
+            .FirstOrDefaultAsync(user => user.Id == order.ClientId);
+        
+        if (client == null)
+        {
+            throw new ArgumentException("client not found");
+        }
+
+        var car = await _dbContext.Cars
+            .FirstOrDefaultAsync(car => car.Id == order.CarId);
+
+        if (car == null)
+        {
+            throw new ArgumentException("car not found");
+        }
+
         var orderEntity = new OrderEntity
         {
             Id = order.Id,
-            Client = order.Client,
+            Client = client,
+            ClientId = order.ClientId,
+            Car = car,
             CarId = order.CarId,
-            Date = order.CreatedAt, // можно убрать свойство у модели, и просто присваивать каждый раз при создании сущности Date = DateTime.UtcNow
+            Date = order.CreatedAt, // можно убрать свойство у модели,
+                                    // и просто присваивать каждый раз при создании сущности Date = DateTime.UtcNow
             Status = order.Status
             //SelectedServices = selectedServices
         };
@@ -64,13 +86,31 @@ public class OrdersRepository : IOrdersRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<bool> Update(Guid id, Order updateOrder)
+    public async Task<bool> Update(Order updateOrder)
     {
-        // тут надо подумать, что можно менять, а что оставить не изменяемым
+        var client = await _dbContext.Users
+           .FirstOrDefaultAsync(user => user.Id == updateOrder.ClientId);
+
+        if (client == null)
+        {
+            throw new ArgumentException("client not found");
+        }
+
+        var car = await _dbContext.Cars
+            .FirstOrDefaultAsync(car => car.Id == updateOrder.CarId);
+
+        if (car == null)
+        {
+            throw new ArgumentException("car not found");
+        }
+
         var result = await _dbContext.Orders
-            .Where(order => order.Id == id)
+            .Where(order => order.Id == updateOrder.Id)
             .ExecuteUpdateAsync(order => order
-                .SetProperty(o => o.Status, updateOrder.Status));
+                .SetProperty(o => o.Status, updateOrder.Status)
+                .SetProperty(o => o.CarId, updateOrder.CarId)
+                .SetProperty(o => o.ClientId, updateOrder.ClientId)
+            );
 
         return result > 0;
     }

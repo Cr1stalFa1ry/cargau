@@ -3,26 +3,29 @@ GET http://localhost:5000/cars
 ### "a867246d-d2dc-41e6-9ea9-40c370f31b94", 
 ### lada: 3f56d605-0bd9-41cb-a6f5-a762f915a026
 ### dodge: faa48f1f-98d9-4493-ac81-fabfbf7bbb34
-GET http://localhost:5000/cars/3f56d605-0bd9-41cb-a6f5-a762f915a026
+GET http://localhost:5000/cars/f45dcf24-7031-4479-9fdb-b2f387010e74
 
-### 
+### "a0b5c09e-b922-459d-a1b6-1512c61aa04a" lada
+### "d4840c8f-8c5d-41d5-9a5e-bbc62e5ad921" rs6 c8
+### "f45dcf24-7031-4479-9fdb-b2f387010e74"
 POST http://localhost:5000/cars
 Content-Type: application/json
 
 {
-  "brand": "dodge",
-  "model": "ram",
-  "price": 15569000,
-  "owner": "cr1stal_fa1ry_"
+  "brand": "audi",
+  "model": "rsq8",
+  "price": 24000000,
+  "yearRelease": "2024",
+  "ownerId": "78041e2e-ef96-45a9-bb9b-947aa7ef6aef"
 }
 
 ### 
-PUT http://localhost:5000/cars/3f56d605-0bd9-41cb-a6f5-a762f915a026
+PUT http://localhost:5000/cars/a0b5c09e-b922-459d-a1b6-1512c61aa04a
 Content-Type: application/json
 
 {
   "price": 377707,
-  "owner": "cr1stal_fa1ry_"
+  "ownerId": "f09b0c48-a47a-4632-8829-2a72cd95d11c"
 }
 
 ###

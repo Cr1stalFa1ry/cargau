@@ -14,28 +14,29 @@ public class CarsService : ICarsService
     public async Task<List<Car>> Get()
     {
         var cars = await _carRepository.Get();
+
         return cars;
     }
 
     public async Task<Car> GetById(Guid id)
     {
-        return await _carRepository.GetById(id);
+        return await _carRepository.GetById(id) ?? throw new ArgumentException("not found car");
     }
 
-    public async Task<Guid> Add(string brand, string model, string owner, decimal price)
+    public async Task<Guid> Add(string brand, string model, Guid ownerId, string yearRelease, decimal price)
     {
-        var car = Car.Create(Guid.NewGuid(), brand, model, owner, price);
+        var car = Car.Create(Guid.NewGuid(), brand, model, yearRelease, ownerId, price);
 
         await _carRepository.Add(car);
 
         return car.Id;
     }
 
-    public async Task Update(Guid id, string owner, decimal price)
+    public async Task Update(Guid id, Guid ownerId, decimal price)
     {
-        var carUpdate = Car.Create(id, "", "", owner, price);
+        var carUpdate = Car.Create(ownerId, price);
 
-        await _carRepository.Put(carUpdate, id);
+        await _carRepository.Update(carUpdate, id);
     }
 
     public async Task<bool> DeleteById(Guid id)

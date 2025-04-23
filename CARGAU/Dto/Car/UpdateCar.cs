@@ -5,5 +5,5 @@ namespace API.Dto.Car;
 public record class UpdateCar
 (
     decimal Price,
-    string Owner
+    Guid OwnerId
 );

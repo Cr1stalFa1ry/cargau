@@ -1,25 +1,28 @@
-GET http://localhost:5000/cars
+GET http://localhost:5000/orders
 
 ### 
-GET http://localhost:5000/orders
-### 
+GET http://localhost:5000/orders/5923ed11-4c84-4af2-96c3-f3a9bf3af59d
+
+### "5923ed11-4c84-4af2-96c3-f3a9bf3af59d"
+### b7861203-d04c-4c20-b38f-739271c1ed48
+### 8a151228-2b3b-415a-b0dd-68d58fcb26ee rsq8
 POST http://localhost:5000/orders
 Content-Type: application/json
 
 {
-  "client": "cr1stal",
-  "carId": "faa48f1f-98d9-4493-ac81-fabfbf7bbb34",
-  "status": "created"
+  "clientId": "f09b0c48-a47a-4632-8829-2a72cd95d11c",
+  "carId": "f45dcf24-7031-4479-9fdb-b2f387010e74"
 }
 
 ### 
-PUT http://localhost:5000/orders
+PUT http://localhost:5000/orders/5923ed11-4c84-4af2-96c3-f3a9bf3af59d
 Content-Type: application/json
 
 {
-  "price": 377707,
-  "owner": "cr1stal_fa1ry_"
+  "clientId": "78041e2e-ef96-45a9-bb9b-947aa7ef6aef",
+  "carId": "a0b5c09e-b922-459d-a1b6-1512c61aa04a",
+  "status": 1
 }
 
 ###
-DELETE  http://localhost:5000/orders
+DELETE  http://localhost:5000/orders/ddd7dd53-b063-4304-85a1-5b2d4bea7621

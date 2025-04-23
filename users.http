@@ -1,0 +1,33 @@
+GET http://localhost:5000/users
+
+
+GET http://localhost:5000/users/bfc83f10-c4ba-4337-bf6b-ea897a5f0318
+
+### 
+POST http://localhost:5000/register
+Content-Type: application/json
+
+{
+    "userName": "black_monkey",
+    "email": "uuaauuaa@gmail.com",
+    "password": "qwerty"
+}
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "uuaauuaa@gmail.com",
+    "password": "qwerty"
+}
+
+
+### 
+PUT http://localhost:5000/users/bfc83f10-c4ba-4337-bf6b-ea897a5f0318
+Content-Type: application/json
+
+
+
+###
+DELETE  http://localhost:5000/users/bfc83f10-c4ba-4337-bf6b-ea897a5f0318

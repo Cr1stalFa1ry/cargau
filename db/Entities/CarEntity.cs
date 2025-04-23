@@ -8,6 +8,8 @@ public class CarEntity
     public string Brand { get; set; } = string.Empty;
     public string Model { get; set; } = string.Empty;
     public decimal Price { get; set; }
-    public DateTime DateRelease { get; set; }
-    public string Owner { get; set; } = string.Empty;
+    public string YearRelease { get; set; } = string.Empty;
+    public UserEntity Owner { get; set; } = null!;
+    public Guid OwnerId { get; set; }
+    public List<OrderEntity> Orders { get; set; } = [];
 }

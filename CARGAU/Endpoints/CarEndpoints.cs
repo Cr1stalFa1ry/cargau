@@ -27,6 +27,7 @@ public static class CarEndpoints
     private static async Task<IResult> Get([FromServices] ICarsService carService)
     {
         var cars = await carService.Get();
+
         return Results.Ok(cars);
     }
 
@@ -37,9 +38,11 @@ public static class CarEndpoints
         return car != null ? Results.Ok(car) : Results.NotFound("car is not found");
     }
 
-    private static async Task<IResult> Add([FromBody] CreateCar car, [FromServices] ICarsService carService)
+    private static async Task<IResult> Add(
+        [FromBody] CreateCar car, 
+        [FromServices] ICarsService carService)
     {
-        var id = await carService.Add(car.Brand, car.Model, car.Owner, car.Price);
+        var id = await carService.Add(car.Brand, car.Model, car.OwnerId, car.YearRelease, car.Price);
 
         return Results.Created($"cars/{id}", id);
     }
@@ -49,12 +52,14 @@ public static class CarEndpoints
         [FromBody] UpdateCar updateCar, 
         [FromServices] ICarsService carService)
     {
-        await carService.Update(id, updateCar.Owner, updateCar.Price);
+        await carService.Update(id, updateCar.OwnerId, updateCar.Price);
+
         return Results.NoContent();
     }
 
     private static async Task<IResult> DeleteById(Guid id, [FromServices] ICarsService carService)
     {
-        return await carService.DeleteById(id) ? Results.NoContent() : Results.NotFound("Car is not found");
+        return await carService.DeleteById(id)
+            ? Results.NoContent() : Results.NotFound("Car is not found");
     }
 }

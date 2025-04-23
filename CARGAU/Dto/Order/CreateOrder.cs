@@ -5,8 +5,6 @@ namespace API.Dto.Order;
 
 public record class CreateOrder
 (
-    [Required] string Client,
-    [Required] Guid CarId ,
-    //List<Service> SelectedServices,
-    [Required] string Status
+    [Required] Guid ClientId,
+    [Required] Guid CarId
 );

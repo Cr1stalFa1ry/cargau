@@ -15,9 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "http", "http", "{0D9F6678-A
 	ProjectSection(SolutionItems) = preProject
 		cars.http = cars.http
 		orders.http = orders.http
+		users.http = users.http
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "db", "db\db.csproj", "{F2444E3C-0AE6-4DEC-9DC8-190A6C585A7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sh", ".sh", "{D2FD7CD8-8B09-4500-AE89-FA1EFAB368E3}"
+	ProjectSection(SolutionItems) = preProject
+		ef-migrations.sh = ef-migrations.sh
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,126 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\cargau\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C34EBF71-05CE-4B07-9DA2-08ACB0790E93}|Application\\Application.csproj|c:\\users\\user\\desktop\\cargau\\application\\services\\ordersservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C34EBF71-05CE-4B07-9DA2-08ACB0790E93}|Application\\Application.csproj|solutionrelative:application\\services\\ordersservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2444E3C-0AE6-4DEC-9DC8-190A6C585A7F}|db\\db.csproj|c:\\users\\user\\desktop\\cargau\\db\\repositories\\ordersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2444E3C-0AE6-4DEC-9DC8-190A6C585A7F}|db\\db.csproj|solutionrelative:db\\repositories\\ordersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40FC1EF7-C209-4786-BF74-5994B191CAB0}|Core\\Core.csproj|c:\\users\\user\\desktop\\cargau\\core\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40FC1EF7-C209-4786-BF74-5994B191CAB0}|Core\\Core.csproj|solutionrelative:core\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0D9F6678-A001-FC4E-FBF2-B00713E704D4}|http{0D9F6678-A001-FC4E-FBF2-B00713E704D4}|C:\\Users\\User\\Desktop\\cargau\\orders.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{0D9F6678-A001-FC4E-FBF2-B00713E704D4}|http{0D9F6678-A001-FC4E-FBF2-B00713E704D4}|solutionrelative:orders.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|c:\\users\\user\\desktop\\cargau\\cargau\\endpoints\\ordersendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|solutionrelative:cargau\\endpoints\\ordersendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|c:\\users\\user\\desktop\\cargau\\cargau\\dto\\order\\updateorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|solutionrelative:cargau\\dto\\order\\updateorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UpdateOrder.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\Dto\\Order\\UpdateOrder.cs",
+              "RelativeDocumentMoniker": "CARGAU\\Dto\\Order\\UpdateOrder.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\Dto\\Order\\UpdateOrder.cs",
+              "RelativeToolTip": "CARGAU\\Dto\\Order\\UpdateOrder.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-23T22:09:25.173Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "OrdersEndpoints.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\Endpoints\\OrdersEndpoints.cs",
+              "RelativeDocumentMoniker": "CARGAU\\Endpoints\\OrdersEndpoints.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\Endpoints\\OrdersEndpoints.cs",
+              "RelativeToolTip": "CARGAU\\Endpoints\\OrdersEndpoints.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwBMAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-23T22:06:12.748Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrdersService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\Application\\Services\\OrdersService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\OrdersService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\Application\\Services\\OrdersService.cs",
+              "RelativeToolTip": "Application\\Services\\OrdersService.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowCAAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-23T21:54:49.677Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrdersRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\db\\Repositories\\OrdersRepository.cs",
+              "RelativeDocumentMoniker": "db\\Repositories\\OrdersRepository.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\db\\Repositories\\OrdersRepository.cs",
+              "RelativeToolTip": "db\\Repositories\\OrdersRepository.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAwwDcAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-23T21:55:11.563Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\Core\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "Core\\Models\\Order.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\Core\\Models\\Order.cs",
+              "RelativeToolTip": "Core\\Models\\Order.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBkAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-23T21:55:03.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "orders.http",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\orders.http",
+              "RelativeDocumentMoniker": "orders.http",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\orders.http*",
+              "RelativeToolTip": "orders.http*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2025-04-23T20:02:20.859Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

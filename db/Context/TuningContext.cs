@@ -19,6 +19,11 @@ public class TuningContext(DbContextOptions<TuningContext> options)
         modelBuilder.ApplyConfiguration(new ServiceConfigurations());
         modelBuilder.ApplyConfiguration(new UserConfigurations());
 
+        modelBuilder
+            .Entity<OrderEntity>()
+            .Property(o => o.Status)
+            .HasConversion<string>(); // Хранить как строку в БД
+
         base.OnModelCreating(modelBuilder);
     }
 }

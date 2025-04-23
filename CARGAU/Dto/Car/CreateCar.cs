@@ -7,5 +7,6 @@ public record class CreateCar
     [Required] string Brand,
     [Required] string Model,
     [Required] decimal Price,
-    [Required] string Owner
+    [Required] string YearRelease,
+    [Required] Guid OwnerId
 );

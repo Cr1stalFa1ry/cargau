@@ -23,9 +23,10 @@ public class CarsRepository : ICarsRepository
             Brand = car.Brand,
             Model = car.Model,
             Price = car.Price,
-            Owner = car.Owner,
-            DateRelease = DateTime.UtcNow
+            YearRelease = car.YearRelease,
+            OwnerId = car.OwnerId
         };
+
 
         await _dbContext.Cars.AddAsync(carEntity);
         await _dbContext.SaveChangesAsync();
@@ -38,7 +39,7 @@ public class CarsRepository : ICarsRepository
             .ToListAsync();
 
         var cars = carEntities
-            .Select(c => Car.Create(c.Id, c.Brand, c.Model, c.Owner, c.Price))
+            .Select(c => Car.Create(c.Id, c.Brand, c.Model, c.YearRelease, c.OwnerId, c.Price))
             .ToList();
 
         return cars;
@@ -46,24 +47,37 @@ public class CarsRepository : ICarsRepository
 
     public async Task<Car?> GetById(Guid id)
     {
-        CarEntity? car = await _dbContext.Cars
+        var car = await _dbContext.Cars
             .AsNoTracking()
             .FirstOrDefaultAsync(car => car.Id == id);
 
+        if (car == null)
+        {
+            throw new ArgumentException("cat not found");
+        }
         // нужно обработать ситуацию когда метод
         // FirstOrDefaultAsync вернет дефолтное значение сущности,
         // так как он не смог найти найти ее по id
-        return Car.Create(car.Id, car.Brand, car.Model, car.Owner, car.Price);
+        return Car.Create(car.Id, car.Brand, car.Model, car.YearRelease, car.OwnerId, car.Price);
     }
 
-    public async Task Put(Car updateCar, Guid id)
+    public async Task Update(Car updateCar, Guid id)
     {
+        var owner = await _dbContext.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(user => user.Id == updateCar.OwnerId);
+
+        if (owner == null)
+        {
+            throw new ArgumentException("owner not found");
+        }
+
         await _dbContext.Cars
             .Where(car => car.Id == id)
             .ExecuteUpdateAsync(car => car
                 .SetProperty(car => car.Price, updateCar.Price)
-                .SetProperty(car => car.Owner, updateCar.Owner)
-                );
+                .SetProperty(car => car.OwnerId, updateCar.OwnerId)
+            );
     }
 
     public async Task<bool> Delete(Guid id)

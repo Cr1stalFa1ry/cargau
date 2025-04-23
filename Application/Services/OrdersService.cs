@@ -24,20 +24,20 @@ public class OrdersService : IOrdersService
         return await _ordersRepository.GetById(id);
     }
 
-    public async Task<Guid> Add(string client, Guid carId, string status)
+    public async Task<Guid> Add(Guid clientId, Guid carId)
     {
-        var order = Order.Create(Guid.NewGuid(), client, carId, status, DateTime.UtcNow);
+        var order = Order.Create(clientId, carId);
 
         await _ordersRepository.Add(order);
 
         return order.Id;
     }
 
-    public async Task<bool> Update(Guid id, string client, Guid carId, string status)
+    public async Task<bool> Update(Guid id, Guid clientId, Guid carId, OrderStatus status)
     {
-        var tempOrder = Order.Create(id, client, carId, status, DateTime.UtcNow);
+        var tempOrder = Order.CreateUpdateOrder(id, clientId, carId, status);
 
-        return await _ordersRepository.Update(id, tempOrder);
+        return await _ordersRepository.Update(tempOrder);
     }
 
     public async Task<bool> Delete(Guid id)

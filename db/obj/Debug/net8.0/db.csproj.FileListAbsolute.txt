@@ -17,3 +17,4 @@ C:\Users\User\Desktop\cargau\db\obj\Debug\net8.0\refint\db.dll
 C:\Users\User\Desktop\cargau\db\obj\Debug\net8.0\db.pdb
 C:\Users\User\Desktop\cargau\db\obj\Debug\net8.0\db.genruntimeconfig.cache
 C:\Users\User\Desktop\cargau\db\obj\Debug\net8.0\ref\db.dll
+C:\Users\User\Desktop\cargau\db\obj\Debug\net8.0\db.sourcelink.json
