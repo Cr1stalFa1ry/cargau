@@ -27,8 +27,8 @@ namespace db.Migrations
                     b.Property<Guid>("OrdersId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("SelectedServicesId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("SelectedServicesId")
+                        .HasColumnType("integer");
 
                     b.HasKey("OrdersId", "SelectedServicesId");
 
@@ -98,9 +98,11 @@ namespace db.Migrations
 
             modelBuilder.Entity("db.Entities.ServiceEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()

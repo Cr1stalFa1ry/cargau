@@ -140,8 +140,6 @@ C:\Users\User\Desktop\cargau\CARGAU\obj\Debug\net9.0\refint\API.dll
 C:\Users\User\Desktop\cargau\CARGAU\obj\Debug\net9.0\API.pdb
 C:\Users\User\Desktop\cargau\CARGAU\obj\Debug\net9.0\API.genruntimeconfig.cache
 C:\Users\User\Desktop\cargau\CARGAU\obj\Debug\net9.0\ref\API.dll
-C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Presentation.dll
-C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Presentation.pdb
 C:\Users\User\Desktop\cargau\CARGAU\obj\Debug\net9.0\API.sourcelink.json
 C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\BCrypt.Net-Next.dll
 C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
@@ -149,4 +147,9 @@ C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Microsoft.IdentityModel.Jso
 C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
 C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\User\Desktop\cargau\CARGAU\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll

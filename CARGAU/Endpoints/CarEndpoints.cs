@@ -1,4 +1,4 @@
-using Application.Services;
+using Core.Interfaces.Cars;
 using API.Dto.Car;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +8,7 @@ public static class CarEndpoints
 {
     public static IEndpointRouteBuilder MapCarEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("cars");
+        var group = app.MapGroup("cars").RequireAuthorization();
 
         //group.WithTags("Cars");
 
@@ -54,7 +54,7 @@ public static class CarEndpoints
     {
         await carService.Update(id, updateCar.OwnerId, updateCar.Price);
 
-        return Results.NoContent();
+        return Results.NoContent(); 
     }
 
     private static async Task<IResult> DeleteById(Guid id, [FromServices] ICarsService carService)

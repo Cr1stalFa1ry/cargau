@@ -1,4 +1,4 @@
-using Core.Interfaces;
+using Core.Interfaces.Cars;
 using Core.Models;
 
 namespace Application.Services;

@@ -1,0 +1,27 @@
+GET http://localhost:5000/services
+
+###
+GET http://localhost:5000/services/a8972794-0523-4a05-ad60-c72ab32701f2
+
+### 
+POST http://localhost:5000/services
+Content-Type: application/json
+
+{
+  "name": "Т.О авто",
+  "price": 10000,
+  "summary": "Техническое обслуживание автомобиля, его ремонт и рекомендации по эксплутации"
+}
+
+### 
+PUT http://localhost:5000/services/a8972794-0523-4a05-ad60-c72ab32701f2
+Content-Type: application/json
+
+{
+  "name": "Т.О авто",
+  "price": 11111,
+  "summary": "Техническое обслуживание автомобиля, его ремонт и рекомендации по эксплутации"
+}
+
+###
+DELETE  http://localhost:5000/services/a8972794-0523-4a05-ad60-c72ab32701f2

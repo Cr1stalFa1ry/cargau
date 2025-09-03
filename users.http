@@ -24,10 +24,13 @@ Content-Type: application/json
 
 
 ### 
-PUT http://localhost:5000/users/bfc83f10-c4ba-4337-bf6b-ea897a5f0318
+PUT http://localhost:5000/update-profile
 Content-Type: application/json
 
-
+{
+    "newEmail": "12@gmail.com",
+    "newUserName": "ytrewq"
+}
 
 ###
 DELETE  http://localhost:5000/users/bfc83f10-c4ba-4337-bf6b-ea897a5f0318

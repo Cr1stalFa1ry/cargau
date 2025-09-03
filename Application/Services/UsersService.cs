@@ -11,7 +11,7 @@ namespace Application.Services
 
         // в конструктор надо передавать только интерфейсы
         public UsersService(
-            IUsersRepository usersRepository, 
+            IUsersRepository usersRepository,
             IPasswordHasher passwordHasher,
             IJwtProvider jwtProvider)
         {
@@ -41,8 +41,24 @@ namespace Application.Services
             }
 
             var token = _jwtProvider.GenerateToken(user);
-            
+
             return token;
         }
+
+        public async Task UpdateProfile(Guid id, string newName, string newEmail)
+        {
+            // проверка имени и почты на валидность
+
+            var updateUser = User.Create(id, newName, newEmail);
+
+            await _usersRepository.Update(updateUser);
+        }
+
+        // public async Task<List<User>> GetUsersAsync()
+        // {
+        //     // var users = await _usersRepository.
+
+        //     // return users;
+        // }
     }
 }

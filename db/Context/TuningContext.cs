@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace db.Context;
 
+// Экземпляр DbContext представляет сеанс с базой данных и может использоваться для запроса и сохранения экземпляров 
+// сущностей. DbContext — это сочетание шаблонов единиц работы и репозитория.
+
 public class TuningContext(DbContextOptions<TuningContext> options)
         : DbContext(options)
 {
@@ -22,7 +25,7 @@ public class TuningContext(DbContextOptions<TuningContext> options)
         modelBuilder
             .Entity<OrderEntity>()
             .Property(o => o.Status)
-            .HasConversion<string>(); // ������� ��� ������ � ��
+            .HasConversion<string>(); // ������� ��� ������ � ��
 
         base.OnModelCreating(modelBuilder);
     }
