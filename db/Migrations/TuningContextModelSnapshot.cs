@@ -27,8 +27,8 @@ namespace db.Migrations
                     b.Property<Guid>("OrdersId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("SelectedServicesId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("SelectedServicesId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("OrdersId", "SelectedServicesId");
 
@@ -96,13 +96,38 @@ namespace db.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("db.Entities.RefreshTokenEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ExpiresOnUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Token")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("db.Entities.ServiceEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -190,6 +215,17 @@ namespace db.Migrations
                     b.Navigation("Client");
                 });
 
+            modelBuilder.Entity("db.Entities.RefreshTokenEntity", b =>
+                {
+                    b.HasOne("db.Entities.UserEntity", "User")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("db.Entities.CarEntity", b =>
                 {
                     b.Navigation("Orders");
@@ -200,6 +236,8 @@ namespace db.Migrations
                     b.Navigation("Cars");
 
                     b.Navigation("Orders");
+
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

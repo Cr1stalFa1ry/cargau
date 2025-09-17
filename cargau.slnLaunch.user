@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "Новый профиль",
+    "Projects": [
+      {
+        "Path": "CARGAU\\API.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

@@ -10,6 +10,7 @@ namespace db.Context;
 public class TuningContext(DbContextOptions<TuningContext> options)
         : DbContext(options)
 {
+    public DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
     public DbSet<UserEntity> Users { get; set; }
     public DbSet<OrderEntity> Orders { get; set; }
     public DbSet<ServiceEntity> Services { get; set; }
@@ -21,6 +22,7 @@ public class TuningContext(DbContextOptions<TuningContext> options)
         modelBuilder.ApplyConfiguration(new CarConfigurations());
         modelBuilder.ApplyConfiguration(new ServiceConfigurations());
         modelBuilder.ApplyConfiguration(new UserConfigurations());
+        modelBuilder.ApplyConfiguration(new RefreshTokenConfigurations());
 
         modelBuilder
             .Entity<OrderEntity>()

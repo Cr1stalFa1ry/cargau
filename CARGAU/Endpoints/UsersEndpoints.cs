@@ -49,13 +49,13 @@ public static class UsersEndpoints
         // сохранить токен в куки
 
         // все три пункта, описанные выше будут реализованы в .Login()
-        var token = await usersService.Login(request.Email, request.Password);
+        var (token, refreshToken) = await usersService.Login(request.Email, request.Password);
 
         // добавляем токен в куки, в первом параметре передаем название токена, 
         // и поэтому его лучше не называть явно, чтобы его не смогли легко перехватить
         context.Response.Cookies.Append("cargau-cookies", token);
 
-        return Results.Ok(token);
+        return Results.Ok(refreshToken);
     }
 
     [Authorize]

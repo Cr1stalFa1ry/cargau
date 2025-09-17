@@ -153,3 +153,4 @@ C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Microsoft.IdentityModel.Pro
 C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\User\Desktop\cargau\CARGAU\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

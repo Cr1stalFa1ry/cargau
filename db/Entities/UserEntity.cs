@@ -10,6 +10,7 @@ namespace db.Entities
         public string PasswordHash { get; set; } = string.Empty;
         public List<OrderEntity> Orders { get; set; } = [];
         public List<CarEntity> Cars { get; set; } = [];
+        public List<RefreshTokenEntity> RefreshTokens { get; set; } = [];
 
         // Другие свойства ...
     }

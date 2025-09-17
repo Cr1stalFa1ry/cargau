@@ -7,7 +7,7 @@ using System.Security.Claims;
 namespace API.Controllers;
 
 [ApiController]
-[Route("controller/[controller]")]
+[Route("[controller]")]
 public class UsersController : ControllerBase
 {
     private readonly IUsersService _usersService;
@@ -23,23 +23,25 @@ public class UsersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> Register([FromBody] RegisterUserRequest request)
     {
-        await _usersService.Register(request.UserName, request.Email, request.Password);
-        return Ok();
+        var (token, refreshToken) = await _usersService.Register(request.UserName, request.Email, request.Password); 
+
+        Response.Cookies.Append("_cargau-cookies", token);
+
+        return Ok(refreshToken);
     }
 
     [HttpPost("login")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<string>> Login([FromBody] LoginUserRequest request)
     {
-        var token = await _usersService.Login(request.Email, request.Password);
-        return Ok(token);
+        var (token, refreshToken) = await _usersService.Login(request.Email, request.Password);
+
+        Response.Cookies.Append("cargau-cookies", token);
+
+        return Ok(refreshToken);
     }
 
     [Authorize]
     [HttpPut("profile")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult> UpdateProfile([FromBody] UpdateProfileRequest request)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

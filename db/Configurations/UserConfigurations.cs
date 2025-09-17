@@ -17,6 +17,8 @@ public class UserConfigurations : IEntityTypeConfiguration<UserEntity>
             .HasForeignKey(order => order.ClientId);
 
         builder
-            .HasMany<CarEntity>(user => user.Cars);
+            .HasMany<CarEntity>(user => user.Cars)
+            .WithOne(car => car.Owner)
+            .HasForeignKey(car => car.OwnerId);
     }
 }

@@ -1,26 +1,10 @@
 [
   {
-    "ContainingType": "API.Endpoints.CarEndpoints",
-    "Method": "Get",
-    "RelativePath": "cars/",
-    "HttpMethod": "GET",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "API.Endpoints.CarEndpoints",
-    "Method": "Add",
-    "RelativePath": "cars/",
+    "ContainingType": "API.Controllers.CarsController",
+    "Method": "AddCar",
+    "RelativePath": "Cars/add",
     "HttpMethod": "POST",
-    "IsController": false,
+    "IsController": true,
     "Order": 0,
     "Parameters": [
       {
@@ -29,20 +13,14 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "API.Endpoints.CarEndpoints",
-    "Method": "GetById",
-    "RelativePath": "cars/{id}",
-    "HttpMethod": "GET",
-    "IsController": false,
+    "ContainingType": "API.Controllers.CarsController",
+    "Method": "DeleteCarById",
+    "RelativePath": "Cars/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
     "Order": 0,
     "Parameters": [
       {
@@ -51,20 +29,61 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "API.Endpoints.CarEndpoints",
-    "Method": "Update",
-    "RelativePath": "cars/{id}",
+    "ContainingType": "API.Controllers.CarsController",
+    "Method": "GetCars",
+    "RelativePath": "Cars/get",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.CarsController",
+    "Method": "GetCarById",
+    "RelativePath": "Cars/get/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.CarsController",
+    "Method": "SearchCar",
+    "RelativePath": "Cars/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "query",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "price",
+        "Type": "System.Double",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.CarsController",
+    "Method": "UpdateCar",
+    "RelativePath": "Cars/update/{id}",
     "HttpMethod": "PUT",
-    "IsController": false,
+    "IsController": true,
     "Order": 0,
     "Parameters": [
       {
@@ -78,80 +97,14 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "API.Endpoints.CarEndpoints",
-    "Method": "DeleteById",
-    "RelativePath": "cars/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Guid",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "API.Endpoints.UsersEndpoints",
-    "Method": "Login",
-    "RelativePath": "login",
+    "ContainingType": "API.Controllers.OrdersController",
+    "Method": "AddOrder",
+    "RelativePath": "Orders/add",
     "HttpMethod": "POST",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "API.Dto.User.LoginUserRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "API.Endpoints.OrdersEndpoints",
-    "Method": "Get",
-    "RelativePath": "orders/",
-    "HttpMethod": "GET",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "API.Endpoints.OrdersEndpoints",
-    "Method": "Add",
-    "RelativePath": "orders/",
-    "HttpMethod": "POST",
-    "IsController": false,
+    "IsController": true,
     "Order": 0,
     "Parameters": [
       {
@@ -160,20 +113,14 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "API.Endpoints.OrdersEndpoints",
-    "Method": "GetById",
-    "RelativePath": "orders/{id}",
-    "HttpMethod": "GET",
-    "IsController": false,
+    "ContainingType": "API.Controllers.OrdersController",
+    "Method": "DeleteOrderById",
+    "RelativePath": "Orders/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
     "Order": 0,
     "Parameters": [
       {
@@ -182,20 +129,40 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "API.Endpoints.OrdersEndpoints",
-    "Method": "Update",
-    "RelativePath": "orders/{id}",
+    "ContainingType": "API.Controllers.OrdersController",
+    "Method": "GetOrders",
+    "RelativePath": "Orders/get",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.OrdersController",
+    "Method": "GetOrderById",
+    "RelativePath": "Orders/get/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.OrdersController",
+    "Method": "UpdateOrder",
+    "RelativePath": "Orders/update/{id}",
     "HttpMethod": "PUT",
-    "IsController": false,
+    "IsController": true,
     "Order": 0,
     "Parameters": [
       {
@@ -209,18 +176,75 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "API.Endpoints.OrdersEndpoints",
+    "ContainingType": "API.Controllers.ServicesController",
+    "Method": "AddService",
+    "RelativePath": "Services/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "service",
+        "Type": "API.Dto.Service.CreateService",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.ServicesController",
+    "Method": "GetServices",
+    "RelativePath": "Services/get",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.ServicesController",
+    "Method": "GetServiceById",
+    "RelativePath": "Services/get/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.ServicesController",
+    "Method": "UpdateService",
+    "RelativePath": "Services/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateService",
+        "Type": "API.Dto.Service.UpdateService",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Endpoints.RefreshTokenEndpoint",
     "Method": "Delete",
-    "RelativePath": "orders/{id}",
+    "RelativePath": "users/{id:guid}/refresh-tokens",
     "HttpMethod": "DELETE",
     "IsController": false,
     "Order": 0,
@@ -240,11 +264,77 @@
     ]
   },
   {
-    "ContainingType": "API.Endpoints.UsersEndpoints",
-    "Method": "Register",
-    "RelativePath": "register",
+    "ContainingType": "API.Controllers.UsersController",
+    "Method": "Login",
+    "RelativePath": "Users/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "API.Dto.User.LoginUserRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.UsersController",
+    "Method": "UpdateProfile",
+    "RelativePath": "Users/profile",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "API.Dto.User.UpdateProfileRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Endpoints.RefreshTokenEndpoint",
+    "Method": "Login",
+    "RelativePath": "users/refresh-token",
     "HttpMethod": "POST",
     "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "API.Dto.RefreshToken.Request",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "API.Dto.RefreshToken.Response",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.UsersController",
+    "Method": "Register",
+    "RelativePath": "Users/register",
+    "HttpMethod": "POST",
+    "IsController": true,
     "Order": 0,
     "Parameters": [
       {
@@ -258,6 +348,15 @@
         "Type": "System.Void",
         "MediaTypes": [],
         "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
       }
     ]
   }
