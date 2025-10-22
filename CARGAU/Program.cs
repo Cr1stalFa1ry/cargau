@@ -87,7 +87,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseRouting(); // можно и не вызывать т.к. по умолчанию вначале pipeline оно вызывается
+app.UseRouting(); // можно и не вызывать т.к. по умолчанию вначале pipeline вызывается
 
 app.UseAuthentication(); // кто вы?
 app.UseAuthorization(); // какие права у вас есть?
@@ -97,10 +97,5 @@ app.UseAuthorization(); // какие права у вас есть?
 app.MapControllers();
 
 app.MapRefreshTokenEndpoints();
-// Использование endpoints
-// app.MapCarEndpoints();
-// app.MapOrdersEndpoints();
-// app.MapUsersEndpoints();
-// app.MapServicesEnpoints();
 
 app.Run();
