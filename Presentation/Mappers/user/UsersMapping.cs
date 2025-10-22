@@ -7,12 +7,12 @@ namespace Presentation.Mappers.user
     {
         public static User ToModel(this UserEntity user)
         {
-            return User.Create(user.Id, user.UserName, user.PasswordHash, user.Email);
+            return User.Create(user.Id, user.UserName, user.PasswordHash, user.Email, Core.Enum.Roles.Admin);
         }
 
-        // public static UserEntity ToEntity(this User user)
-        // {
-        //     return null;
-        // }
+        //public static UserEntity ToEntity(this User user)
+        //{
+        //    return new UserEntity();
+        //}
     }
 }

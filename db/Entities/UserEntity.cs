@@ -11,6 +11,8 @@ namespace db.Entities
         public List<OrderEntity> Orders { get; set; } = [];
         public List<CarEntity> Cars { get; set; } = [];
         public List<RefreshTokenEntity> RefreshTokens { get; set; } = [];
+        public RoleEntity? Role { get; set; }
+        public int? RoleId { get; set; }
 
         // Другие свойства ...
     }

@@ -22,19 +22,19 @@ public static class UsersEndpoints
         return app;
     }
 
-    // [Authorize(Roles = "admin")]
-    // private static async Task<IResult> GetUsers([FromServices] IUsersService usersService)
-    // {
-    //     var users = await usersService.GetUsersAsync();
+    //[Authorize(Roles = "admin")]
+    private static async Task<IResult> GetUsers([FromServices] IUsersService usersService)
+    {
+        var users = await usersService.GetUsersAsync();
 
-    //     return Results.Ok(users);
-    // }
+        return Results.Ok(users);
+    }
 
     private static async Task<IResult> Register(
         [FromBody] RegisterUserRequest request,
         [FromServices] IUsersService usersService)
     {
-        await usersService.Register(request.UserName, request.Email, request.Password);
+        await usersService.Register(request.UserName, request.Email, request.Password, Core.Enum.Roles.User);
 
         return Results.Ok();
     }
@@ -68,7 +68,7 @@ public static class UsersEndpoints
         if (userId == null)
             return Results.Unauthorized();
 
-        await usersService.UpdateProfile(Guid.Parse(userId), request.NewUserName, request.NewEmail);
+        await usersService.UpdateProfile(Guid.Parse(userId), request.NewUserName, request.NewEmail, request.Role);
         return Results.NoContent();
     }
 }

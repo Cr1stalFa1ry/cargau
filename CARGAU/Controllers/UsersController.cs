@@ -17,15 +17,26 @@ public class UsersController : ControllerBase
         _usersService = usersService;
     }
 
+    [HttpGet("get-current-user")]
+    public async Task<IResult> GetCurrentUser()
+    {
+        var user = await _usersService.GetCurrentUser();
+
+        return user != null ? Results.Ok(user) : Results.NotFound("user is not found");
+    }
+
     [HttpPost("register")]
     // эти атрибуты можно опустить, они для документации
     [ProducesResponseType(StatusCodes.Status200OK)] 
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> Register([FromBody] RegisterUserRequest request)
     {
-        var (token, refreshToken) = await _usersService.Register(request.UserName, request.Email, request.Password); 
+        var (token, refreshToken) = await _usersService.Register(request.UserName, request.Email, request.Password, request.Role); 
 
-        Response.Cookies.Append("_cargau-cookies", token);
+        Response.Cookies.Append("cargau-cookies", token, new CookieOptions()
+        {
+            Expires = DateTimeOffset.UtcNow.AddMinutes(5)
+        });
 
         return Ok(refreshToken);
     }
@@ -35,7 +46,10 @@ public class UsersController : ControllerBase
     {
         var (token, refreshToken) = await _usersService.Login(request.Email, request.Password);
 
-        Response.Cookies.Append("cargau-cookies", token);
+        Response.Cookies.Append("cargau-cookies", token, new CookieOptions()
+        {
+            Expires = DateTimeOffset.UtcNow.AddMinutes(5)
+        });
 
         return Ok(refreshToken);
     }
@@ -48,7 +62,7 @@ public class UsersController : ControllerBase
         if (userId == null || !Guid.TryParse(userId, out var userGuid))
             return Unauthorized();
 
-        await _usersService.UpdateProfile(userGuid, request.NewUserName, request.NewEmail);
+        await _usersService.UpdateProfile(userGuid, request.NewUserName, request.NewEmail, request.Role);
         return Ok();
     }
 }

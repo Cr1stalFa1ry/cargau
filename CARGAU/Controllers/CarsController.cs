@@ -17,7 +17,7 @@ public class CarsController : ControllerBase
     }
 
     [HttpGet("get")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public async Task<IResult> GetCars()
     {
         var cars = await _carsService.Get();
@@ -25,7 +25,7 @@ public class CarsController : ControllerBase
     }
 
     [HttpGet("get/{id}")]
-    [Authorize]
+    [Authorize(Policy = "AdminOnly")]
     [ResponseHeader("Filter-Cars", "Cars")] // атрибут фильтра по добавлению заголовка в ответ
     [TypeFilter<LoggingFilter>(Arguments = ["Получение машины по id"])] // атрибут фильтра логирования, 
     // тут используется атрибут TypeFilter т.к. в конструктор LoggingFilter нужно передать параметр ILogger -> через DI
