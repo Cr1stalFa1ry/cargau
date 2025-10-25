@@ -1,19 +1,22 @@
 ﻿using Core.Models;
 using Core.Interfaces.Users;
+using Core.Enum;
 using db.Context;
 using db.Entities;
 using Microsoft.EntityFrameworkCore;
-using Core.Enum;
+using AutoMapper;
 
 namespace db.Repositories;
 
 public class UsersRepository : IUsersRepository
 {
     private readonly TuningContext _dbContext;
+    private readonly IMapper _mapper;
  
-    public UsersRepository(TuningContext dbContext)
+    public UsersRepository(TuningContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
     }
 
     public async Task<User> GetUser(Guid userId)
@@ -26,27 +29,18 @@ public class UsersRepository : IUsersRepository
         if (userEntity == null)
             throw new ArgumentNullException("user not found");
 
-        var role = (Roles)userEntity.Role!.Id;
-
-        return User.Create(userId,
-                           userEntity!.UserName,
-                           userEntity.Email,
-                           role);
+        return _mapper.Map<User>(userEntity);
     }
 
     public async Task<List<User>> GetUsers()
     {
         var usersEntities = await _dbContext.Users
             .AsNoTracking()
+            .Include(u => u.Role)
             .ToListAsync();
 
         var users = usersEntities
-            .Select(user => User
-                .Create(user.Id,
-                        user.UserName,
-                        user.Email,
-                        (Roles)user.Role!.Id) // предполагается, что у пользователя есть хотя бы одна роль, как будто бы костыль
-            ) 
+            .Select(user => _mapper.Map<User>(user))
             .ToList();
 
         return users;
@@ -54,7 +48,6 @@ public class UsersRepository : IUsersRepository
 
     public async Task Add(User user)
     {
-        // захардкодили, чтобы проверить разрешения в работе
         var roleEntity = await _dbContext.Roles
             .SingleOrDefaultAsync(r => r.Id == (int)user.Role)
             ?? throw new InvalidOperationException("role not found");
@@ -82,10 +75,9 @@ public class UsersRepository : IUsersRepository
 
         var role = (Roles)userEntity.Role!.Id;
 
-        var user = User.Create(userEntity.Id, userEntity.UserName, userEntity.PasswordHash, userEntity.Email, role);
+        var user = _mapper.Map<User>(userEntity);
 
         return user;
-        //_mapper.Map<User>(userEntity);
     }
 
     public async Task Update(User updateUser)
@@ -95,27 +87,10 @@ public class UsersRepository : IUsersRepository
             .ExecuteUpdateAsync(u => u
                 .SetProperty(u => u.UserName, updateUser.UserName)
                 .SetProperty(u => u.Email, updateUser.Email)
+                .SetProperty(u => u.RoleId, (int) updateUser.Role)
             );
 
         if (res == 0)
-            throw new Exception("user not found");
+            throw new ArgumentNullException("user not found");
     }
-
-    // Вытаскиваем все разрешения пользователя
-    // public async Task<HashSet<Permissions>> GetUserPermissions(Guid userId)
-    // {
-    //     var roles = await _dbContext.Users
-    //         .AsNoTracking()
-    //         .Include(u => u.Roles)
-    //         .ThenInclude(r => r.Permissions)
-    //         .Where(u => u.Id == userId)
-    //         .Select(u => u.Roles)
-    //         .ToListAsync();
-
-    //     return roles
-    //         .SelectMany(r => r)
-    //         .SelectMany(r => r.Permissions)
-    //         .Select(p => (Permissions)p.Id)
-    //         .ToHashSet();
-    // }
 }

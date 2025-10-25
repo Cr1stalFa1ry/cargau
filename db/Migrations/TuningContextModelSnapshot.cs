@@ -27,8 +27,8 @@ namespace db.Migrations
                     b.Property<Guid>("OrdersId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("SelectedServicesId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("SelectedServicesId")
+                        .HasColumnType("integer");
 
                     b.HasKey("OrdersId", "SelectedServicesId");
 
@@ -80,7 +80,7 @@ namespace db.Migrations
                     b.Property<Guid>("ClientId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Status")
@@ -110,7 +110,7 @@ namespace db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Permissions");
+                    b.ToTable("PermissionEntity");
 
                     b.HasData(
                         new
@@ -191,53 +191,13 @@ namespace db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("db.Entities.RolePermissionEntity", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PermissionId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("RoleId", "PermissionId");
-
-                    b.HasIndex("PermissionId");
-
-                    b.ToTable("RolePermissions");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 2
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 1
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 3
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 4
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            PermissionId = 1
-                        });
-                });
-
             modelBuilder.Entity("db.Entities.ServiceEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -251,6 +211,9 @@ namespace db.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
+
+                    b.Property<int>("TypeTuning")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -339,21 +302,6 @@ namespace db.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("db.Entities.RolePermissionEntity", b =>
-                {
-                    b.HasOne("db.Entities.PermissionEntity", null)
-                        .WithMany()
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("db.Entities.RoleEntity", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("db.Entities.UserEntity", b =>

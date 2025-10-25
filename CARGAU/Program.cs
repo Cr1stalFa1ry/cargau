@@ -6,7 +6,6 @@ using Core.Interfaces.IRefreshToken;
 using Application.Services;
 using db.Context;
 using db.Repositories;
-using db.Options;
 using API.refreshToken;
 using API.Jwt;
 using API.Hash;
@@ -14,30 +13,38 @@ using API.Endpoints;
 using API.Extensions;
 using API.Middleware;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using Presentation.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// DI регистрация сервисов в контейнере
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
+// Добавление валидации FluentValidation
+builder.Services
+    .AddFluentValidationAutoValidation()       // автоматическая серверная валидация
+    .AddFluentValidationClientsideAdapters();  // поддержка для клиента (если нужно)
+
+builder.Services
+    .AddValidatorsFromAssemblyContaining<Program>(); // регистрирует все валидаторы в сборке
+
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<UserProfile>();
+});
+
 builder.Services.AddHttpContextAccessor();
 
-//builder.Services.AddLogging();
+builder.Services.AddLogging();
 
-// DI
-builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
-
-// пока не используется
-builder.Services.Configure<AuthorizationOptions>(builder.Configuration.GetSection(nameof(AuthorizationOptions)));
+builder.Services.Configure<JwtOptions>(
+    builder.Configuration.GetSection(nameof(JwtOptions)));
 
 // добавление в сервисы 
 builder.Services.AddApiAuthentication(builder.Configuration);
-
-// пока не используется
-builder.Services.AddScoped(provider =>
-{
-    var options = new AuthorizationOptions();
-    builder.Configuration.GetSection(nameof(AuthorizationOptions)).Bind(options);
-    return options;
-});
 
 builder.Services.AddScoped<LoggingWithRefreshToken>();
 builder.Services.AddScoped<IRefreshTokenProvider, RefreshTokenProvider>();
@@ -58,7 +65,7 @@ builder.Services.AddScoped<IServicesService, ServicesService>();
 
 
 builder.Services.AddDbContext<TuningContext>(
-    options => 
+    options =>
     {
         options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(TuningContext)));
     }
@@ -80,8 +87,6 @@ builder.Services.AddSwaggerGen(); // генератор интерактивно
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-
-//app.UseHttpsRedirection();
 
 // использование swagger
 app.UseSwagger();

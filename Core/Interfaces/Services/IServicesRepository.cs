@@ -4,10 +4,10 @@ namespace Core.Interfaces.Services;
 
 public interface IServicesRepository
 {
-    Task<Guid> Add(Service service);
-    Task Delete(Guid id);
+    Task<int> Add(Service service);
+    Task Delete(int id);
     Task<List<Service>> Get();
-    Task<Service> GetById(Guid id);
+    Task<Service> GetById(int id);
     Task<Service> GetByName(string name);
     Task Update(Service serviceUpdate);
 }

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace db.Entities
 {
-    public class UserEntity /*: IdentityUser*/
+    public class UserEntity
     {
         public Guid Id { get; set; }
         public string UserName { get; set; } = string.Empty;

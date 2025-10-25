@@ -9,4 +9,5 @@ public interface IOrdersRepository
     Task Add(Order order);
     Task<bool> Update(Order updateOrder);
     Task<bool> Delete(Guid id);
+    Task AddServicesToOrder(int serviceId, Guid orderId);
 }

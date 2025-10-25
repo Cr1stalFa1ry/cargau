@@ -1,10 +1,8 @@
 using System.Text;
 using Core.Enum;
-using db.Options;
 using API.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Core.Interfaces.Permissions;
 using Microsoft.AspNetCore.Authorization;
 
 namespace API.Extensions;
@@ -48,18 +46,15 @@ public static class ApiExtensions
                 };
             });
 
-        services.AddScoped<IPermissionService, PermissionService>();
-        services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>(); // почему мы его ЗАРЕГАЛИ КАК SINGLETON???
-
         services.AddAuthorization();
     }
 
     // статический метод расширения для указания разрешения на каждый endpoint
-    public static IEndpointConventionBuilder RequirePermissions<TBuilder>(
-        this TBuilder builder, params Permissions[] permissions)
-            where TBuilder : IEndpointConventionBuilder
-    {
-        return builder.RequireAuthorization(policy =>
-            policy.AddRequirements(new PermissionRequirement(permissions)));
-    }
+    // public static IEndpointConventionBuilder RequirePermissions<TBuilder>(
+    //     this TBuilder builder, params Permissions[] permissions)
+    //         where TBuilder : IEndpointConventionBuilder
+    // {
+    //     return builder.RequireAuthorization(policy =>
+    //         policy.AddRequirements(new PermissionRequirement(permissions)));
+    // }
 }

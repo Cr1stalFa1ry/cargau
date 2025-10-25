@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/orders")]
 public class OrdersController : ControllerBase
 {
     private readonly IOrdersService _ordersService;
@@ -35,7 +35,7 @@ public class OrdersController : ControllerBase
 
     [Authorize]
     [HttpPost("add")]
-    public async Task<IResult> AddOrder([FromBody] CreateOrder newOrder)
+    public async Task<IResult> CreateOrder([FromBody] CreateOrder newOrder)
     {
         var id = await _ordersService.Add(newOrder.ClientId, newOrder.CarId);
 
@@ -56,5 +56,13 @@ public class OrdersController : ControllerBase
     {
         return await _ordersService.Delete(id)
             ? Results.NoContent() : Results.NotFound("Order is not found");
+    }
+
+    [Authorize]
+    [HttpPost("add-service")]
+    public async Task<IResult> AddServiceToOrder([FromQuery] int serviceId, [FromQuery] Guid orderId)
+    {
+        await _ordersService.AddService(serviceId, orderId);
+        return Results.NoContent();
     }
 }

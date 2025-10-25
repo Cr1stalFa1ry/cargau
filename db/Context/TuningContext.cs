@@ -1,6 +1,5 @@
 using db.Entities;
 using db.Configurations;
-using db.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -10,8 +9,7 @@ namespace db.Context;
 // сущностей. DbContext — это сочетание шаблонов единиц работы и репозитория.
 
 public class TuningContext(
-    DbContextOptions<TuningContext> options, 
-    AuthorizationOptions authOptions)
+    DbContextOptions<TuningContext> options)
         : DbContext(options)
 {
     public DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
@@ -20,8 +18,6 @@ public class TuningContext(
     public DbSet<ServiceEntity> Services { get; set; }
     public DbSet<CarEntity> Cars { get; set; }
     public DbSet<RoleEntity> Roles { get; set; }
-    public DbSet<PermissionEntity> Permissions { get; set; }
-    public DbSet<RolePermissionEntity> RolePermissions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -33,19 +29,23 @@ public class TuningContext(
 
         modelBuilder.ApplyConfiguration(new PermissionConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfigurations());
-        modelBuilder.ApplyConfiguration(new RolePermissionsConfiguration(authOptions));
 
         modelBuilder
             .Entity<OrderEntity>()
             .Property(o => o.Status)
-            .HasConversion<string>(); // ������� ��� ������ � ��
+            .HasConversion<string>();
+        
+        modelBuilder.Entity<ServiceEntity>()
+            .Property(s => s.Id)
+            .ValueGeneratedOnAdd()
+            .UseIdentityColumn(); // Для автоинкремента
 
         // Явно игнорировать автоматическую связь многие ко многим
-        modelBuilder.Entity<RoleEntity>()
-            .Ignore(r => r.Permissions);
+        // modelBuilder.Entity<RoleEntity>()
+        //     .Ignore(r => r.Permissions);
 
-        modelBuilder.Entity<PermissionEntity>()
-            .Ignore(p => p.Roles);
+        // modelBuilder.Entity<PermissionEntity>()
+        //     .Ignore(p => p.Roles);
 
         base.OnModelCreating(modelBuilder);
     }

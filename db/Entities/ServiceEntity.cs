@@ -1,13 +1,15 @@
 using System;
+using Core.Enum;
 
 namespace db.Entities;
 
 public class ServiceEntity
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public string Summary { get; set; } = string.Empty;
+    public TypeTuning TypeTuning { get; set; }
     public List<OrderEntity> Orders { get; set; } = [];
 
     // надо добавить сущность заказа, так сказать ссылку на заказ

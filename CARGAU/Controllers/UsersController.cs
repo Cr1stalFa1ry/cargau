@@ -11,13 +11,24 @@ namespace API.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly IUsersService _usersService;
+    private readonly IHttpContextAccessor _httpContext;
     
-    public UsersController(IUsersService usersService)
+    public UsersController(IUsersService usersService, IHttpContextAccessor httpContext)
     {
         _usersService = usersService;
+        _httpContext = httpContext;
+    }
+
+    [HttpGet("get-all-users")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IResult> GetUsers()
+    {
+        var users = await _usersService.GetUsersAsync();
+        return Results.Ok(users);
     }
 
     [HttpGet("get-current-user")]
+    [Authorize]
     public async Task<IResult> GetCurrentUser()
     {
         var user = await _usersService.GetCurrentUser();
@@ -26,7 +37,6 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("register")]
-    // эти атрибуты можно опустить, они для документации
     [ProducesResponseType(StatusCodes.Status200OK)] 
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> Register([FromBody] RegisterUserRequest request)
@@ -54,13 +64,20 @@ public class UsersController : ControllerBase
         return Ok(refreshToken);
     }
 
-    [Authorize]
     [HttpPut("profile")]
+    [Authorize]
     public async Task<ActionResult> UpdateProfile([FromBody] UpdateProfileRequest request)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        // var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        // if (userId == null || !Guid.TryParse(userId, out var userGuid))
+        //     return Unauthorized();
+        var currentUser = _httpContext.HttpContext?.User;
+        if (currentUser == null)
+            throw new ArgumentNullException("Пользователь не найден, нужно войти в профиль или зарегистрироваться");
+
+        var userId = currentUser?.FindFirst("userId")!.Value;
         if (userId == null || !Guid.TryParse(userId, out var userGuid))
-            return Unauthorized();
+            return Unauthorized("user or userId not found");
 
         await _usersService.UpdateProfile(userGuid, request.NewUserName, request.NewEmail, request.Role);
         return Ok();

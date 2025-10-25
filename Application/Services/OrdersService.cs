@@ -26,7 +26,7 @@ public class OrdersService : IOrdersService
 
     public async Task<Guid> Add(Guid clientId, Guid carId)
     {
-        var order = Order.Create(clientId, carId);
+        var order = new Order(Guid.NewGuid(), clientId, carId, OrderStatus.New, DateTime.UtcNow);
 
         await _ordersRepository.Add(order);
 
@@ -35,7 +35,7 @@ public class OrdersService : IOrdersService
 
     public async Task<bool> Update(Guid id, Guid clientId, Guid carId, OrderStatus status)
     {
-        var tempOrder = Order.CreateUpdateOrder(id, clientId, carId, status);
+        var tempOrder = new Order(id, clientId, carId, status);
 
         return await _ordersRepository.Update(tempOrder);
     }
@@ -43,5 +43,10 @@ public class OrdersService : IOrdersService
     public async Task<bool> Delete(Guid id)
     {
         return await _ordersRepository.Delete(id);
+    }
+
+    public async Task AddService(int serviceId, Guid orderId)
+    {
+        await _ordersRepository.AddServicesToOrder(serviceId, orderId);
     }
 }

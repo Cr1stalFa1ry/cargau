@@ -22,13 +22,13 @@ public class ServicesRepository : IServicesRepository
             .ToListAsync();
 
         var listServices = listEntities
-            .Select(s => Service.Create(s.Id, s.Name, s.Price, s.Summary))
+            .Select(s => new Service(s.Name, s.Price, s.Summary, s.TypeTuning, s.Id))
             .ToList();
 
         return listServices;
     }
 
-    public async Task<Service> GetById(Guid id)
+    public async Task<Service> GetById(int id)
     {
         var serviceById = await _dbContext.Services
             .AsNoTracking()
@@ -39,7 +39,13 @@ public class ServicesRepository : IServicesRepository
             throw new ArgumentNullException("service not found");
         }
 
-        return Service.Create(serviceById.Id, serviceById.Name, serviceById.Price, serviceById.Summary);
+        return new Service(
+            serviceById.Name,
+            serviceById.Price,
+            serviceById.Summary,
+            serviceById.TypeTuning,
+            serviceById.Id
+        );
     }
 
     public async Task<Service> GetByName(string name)
@@ -53,14 +59,19 @@ public class ServicesRepository : IServicesRepository
             throw new ArgumentNullException("service not found");
         }
 
-        return Service.Create(serviceById.Id, serviceById.Name, serviceById.Price, serviceById.Summary);
+        return new Service(
+            serviceById.Name,
+            serviceById.Price,
+            serviceById.Summary,
+            serviceById.TypeTuning,
+            serviceById.Id
+        );
     }
 
-    public async Task<Guid> Add(Service service)
+    public async Task<int> Add(Service service)
     {
         var serviceEntity = new ServiceEntity
         {
-            Id = service.Id,
             Name = service.NameService,
             Price = service.Price,
             Summary = service.Summary
@@ -88,7 +99,7 @@ public class ServicesRepository : IServicesRepository
         }
     }
 
-    public async Task Delete(Guid id)
+    public async Task Delete(int id)
     {
         var res = await _dbContext.Services
             .Where(s => s.Id == id)

@@ -157,3 +157,7 @@ C:\Users\User\Desktop\cargau\CARGAU\obj\Debug\net9.0\refint\API.dll
 C:\Users\User\Desktop\cargau\CARGAU\obj\Debug\net9.0\API.pdb
 C:\Users\User\Desktop\cargau\CARGAU\obj\Debug\net9.0\API.genruntimeconfig.cache
 C:\Users\User\Desktop\cargau\CARGAU\obj\Debug\net9.0\ref\API.dll
+C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\AutoMapper.dll
+C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\FluentValidation.dll
+C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\FluentValidation.AspNetCore.dll
+C:\Users\User\Desktop\cargau\CARGAU\bin\Debug\net9.0\FluentValidation.DependencyInjectionExtensions.dll

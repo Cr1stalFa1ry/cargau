@@ -12,8 +12,8 @@ using db.Context;
 namespace db.Migrations
 {
     [DbContext(typeof(TuningContext))]
-    [Migration("20250924155840_test1")]
-    partial class test1
+    [Migration("20251025204928_AddIntIdAndTypeTuningForServices")]
+    partial class AddIntIdAndTypeTuningForServices
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,29 +30,14 @@ namespace db.Migrations
                     b.Property<Guid>("OrdersId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("SelectedServicesId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("SelectedServicesId")
+                        .HasColumnType("integer");
 
                     b.HasKey("OrdersId", "SelectedServicesId");
 
                     b.HasIndex("SelectedServicesId");
 
                     b.ToTable("OrderEntityServiceEntity");
-                });
-
-            modelBuilder.Entity("RoleEntityUserEntity", b =>
-                {
-                    b.Property<int>("RolesId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("UsersId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("RolesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("db.Entities.CarEntity", b =>
@@ -98,7 +83,7 @@ namespace db.Migrations
                     b.Property<Guid>("ClientId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Status")
@@ -128,7 +113,7 @@ namespace db.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Permissions");
+                    b.ToTable("PermissionEntity");
 
                     b.HasData(
                         new
@@ -209,53 +194,13 @@ namespace db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("db.Entities.RolePermissionEntity", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PermissionId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("RoleId", "PermissionId");
-
-                    b.HasIndex("PermissionId");
-
-                    b.ToTable("RolePermissions");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 2
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 1
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 3
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            PermissionId = 4
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            PermissionId = 1
-                        });
-                });
-
             modelBuilder.Entity("db.Entities.ServiceEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -269,6 +214,9 @@ namespace db.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
+
+                    b.Property<int>("TypeTuning")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -289,11 +237,16 @@ namespace db.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -309,21 +262,6 @@ namespace db.Migrations
                     b.HasOne("db.Entities.ServiceEntity", null)
                         .WithMany()
                         .HasForeignKey("SelectedServicesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("RoleEntityUserEntity", b =>
-                {
-                    b.HasOne("db.Entities.RoleEntity", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("db.Entities.UserEntity", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -369,24 +307,23 @@ namespace db.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("db.Entities.RolePermissionEntity", b =>
+            modelBuilder.Entity("db.Entities.UserEntity", b =>
                 {
-                    b.HasOne("db.Entities.PermissionEntity", null)
-                        .WithMany()
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("db.Entities.RoleEntity", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId");
 
-                    b.HasOne("db.Entities.RoleEntity", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("db.Entities.CarEntity", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("db.Entities.RoleEntity", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("db.Entities.UserEntity", b =>

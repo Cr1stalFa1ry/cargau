@@ -9,7 +9,7 @@ public static class RefreshTokenEndpoint
 {
     public static IEndpointRouteBuilder MapRefreshTokenEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("users");
+        var group = app.MapGroup("user-rt");
         group.MapPost("/refresh-token", Login);
         group.MapDelete("/{id}/refresh-tokens", Delete).RequireAuthorization();
         //group.MapGet("/get-currtne-user", GetCurrentUser);

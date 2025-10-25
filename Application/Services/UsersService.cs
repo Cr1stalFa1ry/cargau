@@ -44,28 +44,36 @@ namespace Application.Services
 
         public async Task<(string, string)> Register(string userName, string email, string password, Roles role)
         {
-            var hashedPassword = _passwordHasher.Generate(password); // хешируем пароль
+            // хешируем пароль
+            var hashedPassword = _passwordHasher.Generate(password);
 
-            var user = User.Create(Guid.NewGuid(), userName, hashedPassword, email, role); // создаем пользователя
+            // создаем пользователя
+            var user = User.Create(Guid.NewGuid(), role, userName, email, hashedPassword); 
 
-            var token = _jwtProvider.GenerateToken(user); // создаем токен сразу при регистрации
+            // создаем токены при регистрации
+            var token = _jwtProvider.GenerateToken(user); 
             var refreshToken = _rtProvider.GenerateRefreshToken(user);
 
-            await _usersRepository.Add(user); // сохраняем пользователя и токен обновления в БД
+            // сохраняем пользователя и токен обновления в БД
+            await _usersRepository.Add(user); 
             await _rtRepository.AddToken(refreshToken);
 
-            return (token, refreshToken.Token); // возвращаем токены при регистрации
+            // возвращаем токены при регистрации
+            return (token, refreshToken.Token); 
         }
 
         public async Task<(string, string)> Login(string email, string password)
         {
+            // вытаскиваем пользователя из БД по почте
             var user = await _usersRepository.GetByEmail(email);
 
+            // проверяем пароль на совпадение
             var result = _passwordHasher.Verify(password, user.PasswordHash);
 
             if (!result)
-                throw new Exception("Failed to login");
+                throw new ArgumentNullException("Failed to login");
 
+            // создаем токены
             var token = _jwtProvider.GenerateToken(user);
             var refreshToken = _rtProvider.GenerateRefreshToken(user);
 
@@ -76,17 +84,13 @@ namespace Application.Services
 
         public async Task UpdateProfile(Guid id, string newName, string newEmail, Roles role)
         {
-            // проверка имени и почты на валидность
-
-            var updateUser = User.Create(id, newName, newEmail, role);
-
+            var updateUser = User.Create(id, role, newName, newEmail);
             await _usersRepository.Update(updateUser);
         }
 
         public async Task<List<User>> GetUsersAsync()
         {
             var users = await _usersRepository.GetUsers();
-
             return users;
         }
     }

@@ -5,7 +5,14 @@ namespace API.Dto.User;
 
 public record class UpdateProfileRequest
 (
-    [Required] string NewUserName,
-    [Required] string NewEmail,
-    [Required] Roles Role
+    [Required]
+    [StringLength(50, MinimumLength = 3)]
+    string NewUserName,
+
+    [Required] 
+    [EmailAddress(ErrorMessage = "Invalid email address")]
+    string NewEmail,
+
+    [Required] 
+    Roles Role
 );

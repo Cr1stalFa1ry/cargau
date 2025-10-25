@@ -20,7 +20,7 @@ public class OrdersRepository : IOrdersRepository
             .ToListAsync();
 
         var orders = orderEntities
-            .Select(order => Order.Create(order.Id, order.ClientId, order.CarId, order.Status, order.Date))
+            .Select(order => new Order(order.Id, order.ClientId, order.CarId, order.Status, order.CreatedAt))
             .ToList();
 
         return orders;
@@ -38,21 +38,11 @@ public class OrdersRepository : IOrdersRepository
         }
 
         // надо сделать autoMapping, по крайней мере попробовать что это такое
-        return Order.Create(order.Id, order.ClientId, order.CarId, order.Status, order.Date);
+        return new Order(order.Id, order.ClientId, order.CarId, order.Status, order.CreatedAt);
     }
 
     public async Task Add(Order order)
     {
-        //var selectedServices = order.SelectedServices
-        //    .Select(s => new ServiceEntity
-        //    {
-        //        Id = s.Id,
-        //        NameService = s.NameService,
-        //        Price = s.Price,
-        //        Summary = s.Summary
-        //    })
-        //    .ToList();
-
         var client = await _dbContext.Users
             .FirstOrDefaultAsync(user => user.Id == order.ClientId);
         
@@ -76,7 +66,7 @@ public class OrdersRepository : IOrdersRepository
             ClientId = order.ClientId,
             Car = car,
             CarId = order.CarId,
-            Date = order.CreatedAt, // можно убрать свойство у модели,
+            CreatedAt = order.CreatedAt, // можно убрать свойство у модели,
                                     // и просто присваивать каждый раз при создании сущности Date = DateTime.UtcNow
             Status = order.Status
             //SelectedServices = selectedServices
@@ -122,5 +112,34 @@ public class OrdersRepository : IOrdersRepository
             .ExecuteDeleteAsync();
 
         return result > 0;
+    }
+
+    public async Task AddServicesToOrder(int serviceId, Guid orderId)
+    {
+        var order = await _dbContext.Orders
+            .Include(order => order.SelectedServices)
+            .FirstOrDefaultAsync(order => order.Id == orderId)
+            ?? throw new ArgumentNullException("order doesnt exist");
+
+        var service = await _dbContext.Services
+            .AsNoTracking()
+            .FirstOrDefaultAsync(service => service.Id == serviceId)
+            ?? throw new ArgumentNullException("service doesnt exist");
+
+        if (!order.SelectedServices.Any(os => os.Id == serviceId))
+        {
+            order.SelectedServices.Add(new ServiceEntity
+            {
+                Id = service.Id,
+                Name = service.Name,
+                Summary = service.Summary,
+                Price = service.Price,
+                TypeTuning = service.TypeTuning
+            });
+        }
+
+        //order.TotalPrice = order.SelectedServices.Sum(service => service.Price);
+
+        await _dbContext.SaveChangesAsync();
     }
 }

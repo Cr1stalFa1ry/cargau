@@ -9,4 +9,5 @@ public interface IOrdersService
     Task<Guid> Add(Guid clientId, Guid carId);
     Task<bool> Update(Guid id, Guid clientId, Guid carId, OrderStatus status);
     Task<bool> Delete(Guid id);
+    Task AddService(int serviceId, Guid orderId);
 }
