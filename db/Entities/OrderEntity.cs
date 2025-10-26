@@ -1,4 +1,4 @@
-using Core.Models;
+using Core.Enum;
 
 namespace db.Entities;
 
@@ -10,7 +10,7 @@ public class OrderEntity
     public CarEntity? Car { get; set; }
     public Guid CarId { get; set; }
     public List<ServiceEntity> SelectedServices { get; set; } = [];
-    //public decimal TotalPrice { get; set; }
+    public decimal TotalPrice { get; set; }
     public OrderStatus Status { get; set; }
     public DateTime CreatedAt { get; set; }
 }

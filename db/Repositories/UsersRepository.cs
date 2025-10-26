@@ -48,19 +48,13 @@ public class UsersRepository : IUsersRepository
 
     public async Task Add(User user)
     {
+        // получаем роль из БД, заодно проверяя что такая роль существует
         var roleEntity = await _dbContext.Roles
             .SingleOrDefaultAsync(r => r.Id == (int)user.Role)
             ?? throw new InvalidOperationException("role not found");
 
-        var userEntity = new UserEntity()
-        {
-            Id = user.Id,
-            UserName = user.UserName,
-            PasswordHash = user.PasswordHash,
-            Email = user.Email,
-            Role = roleEntity,
-            RoleId = roleEntity.Id
-        };
+        var userEntity = _mapper.Map<UserEntity>(user);
+        userEntity.Role = roleEntity;
 
         await _dbContext.Users.AddAsync(userEntity);
         await _dbContext.SaveChangesAsync();
@@ -73,11 +67,7 @@ public class UsersRepository : IUsersRepository
             .Include(u => u.Role)
             .FirstOrDefaultAsync(u => u.Email == email) ?? throw new ArgumentNullException("user not found");
 
-        var role = (Roles)userEntity.Role!.Id;
-
-        var user = _mapper.Map<User>(userEntity);
-
-        return user;
+        return _mapper.Map<User>(userEntity);
     }
 
     public async Task Update(User updateUser)

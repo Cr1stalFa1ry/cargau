@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/services")]
 public class ServicesController
 {
     private readonly IServicesService _servicesService;

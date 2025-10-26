@@ -16,11 +16,14 @@ using Microsoft.EntityFrameworkCore;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using Presentation.Mappers;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // DI регистрация сервисов в контейнере
 builder.Services.AddControllers();
+    
 builder.Services.AddEndpointsApiExplorer();
 
 // Добавление валидации FluentValidation
@@ -34,6 +37,8 @@ builder.Services
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<UserProfile>();
+    cfg.AddProfile<ServiceProfile>();
+    cfg.AddProfile<OrderProfile>();
 });
 
 builder.Services.AddHttpContextAccessor();

@@ -16,7 +16,6 @@ public class OrdersController : ControllerBase
         _ordersService = ordersService;
     }
 
-    [Authorize]
     [HttpGet("get")]
     public async Task<IResult> GetOrders()
     {
@@ -24,7 +23,6 @@ public class OrdersController : ControllerBase
         return Results.Ok(orders);
     }
 
-    [Authorize]
     [HttpGet("get/{id}")]
     public async Task<IResult> GetOrderById(Guid id)
     {
@@ -42,12 +40,11 @@ public class OrdersController : ControllerBase
         return Results.Created($"orders/{id}", id);
     }
 
-    [Authorize]
-    [HttpPut("update/{id}")]
-    public async Task<IResult> UpdateOrder(Guid id, [FromBody] UpdateOrder updateOrder)
+    [HttpPatch("update-status/{id}")]
+    public async Task<IResult> UpdateStatusOrder(Guid id, [FromQuery] UpdateStatusOrder updateOrder)
     {
-        return await _ordersService.Update(id, updateOrder.ClientId, updateOrder.CarId, updateOrder.Status)
-            ? Results.NoContent() : Results.NotFound("Order is not found");
+        return await _ordersService.UpdateStatus(id, updateOrder.Status)
+            ? Results.NoContent() : Results.NotFound("order is not found");
     }
 
     [Authorize]
@@ -58,11 +55,17 @@ public class OrdersController : ControllerBase
             ? Results.NoContent() : Results.NotFound("Order is not found");
     }
 
-    [Authorize]
-    [HttpPost("add-service")]
-    public async Task<IResult> AddServiceToOrder([FromQuery] int serviceId, [FromQuery] Guid orderId)
+    [HttpPost("add-services")]
+    public async Task<IResult> AddServicesToOrder([FromBody] List<int> listServices, [FromQuery] Guid orderId)
     {
-        await _ordersService.AddService(serviceId, orderId);
+        await _ordersService.AddServices(listServices, orderId);
+        return Results.NoContent();
+    }
+
+    [HttpPut("delete-services")]
+    public async Task<IResult> DeleteServicesFromOrder([FromBody] List<int> listServices, [FromQuery] Guid orderId)
+    {
+        await _ordersService.DeleteServices(listServices, orderId);
         return Results.NoContent();
     }
 }

@@ -7,7 +7,7 @@ using System.Security.Claims;
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/user")]
 public class UsersController : ControllerBase
 {
     private readonly IUsersService _usersService;
@@ -64,7 +64,7 @@ public class UsersController : ControllerBase
         return Ok(refreshToken);
     }
 
-    [HttpPut("profile")]
+    [HttpPut("update-profile")]
     [Authorize]
     public async Task<ActionResult> UpdateProfile([FromBody] UpdateProfileRequest request)
     {

@@ -7,7 +7,7 @@ using API.Filters;
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/cars")]
 public class CarsController : ControllerBase
 {
     private readonly ICarsService _carsService;

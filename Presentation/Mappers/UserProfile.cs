@@ -14,5 +14,7 @@ public class UserProfile : Profile
             // .ForMember(dest => dest.Role, opt => opt.MapFrom(src => (Roles) src.Role!.Id));
         // for member не сработал т.к. у меня сеттер приватный, поэтому использовал ForCtorParam, 
         // который напрямую мапит параметры конструктора
+        CreateMap<User, UserEntity>()
+            .ForMember(dest => dest.Role, opt => opt.MapFrom(src => new RoleEntity { Id = (int)src.Role }));
     }
 }
