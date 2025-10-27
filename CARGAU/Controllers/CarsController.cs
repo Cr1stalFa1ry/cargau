@@ -16,16 +16,16 @@ public class CarsController : ControllerBase
         _carsService = carsService;
     }
 
-    [HttpGet("get")]
-    [Authorize(Roles = "Admin")]
+    [HttpGet("get-cars")]
+    //[Authorize(Roles = "Admin")]
     public async Task<IResult> GetCars()
     {
         var cars = await _carsService.Get();
         return Results.Ok(cars);
     }
 
-    [HttpGet("get/{id}")]
-    [Authorize(Policy = "AdminOnly")]
+    [HttpGet("get-cars/{id}")]
+    //[Authorize(Policy = "AdminOnly")]
     [ResponseHeader("Filter-Cars", "Cars")] // атрибут фильтра по добавлению заголовка в ответ
     [TypeFilter<LoggingFilter>(Arguments = ["Получение машины по id"])] // атрибут фильтра логирования, 
     // тут используется атрибут TypeFilter т.к. в конструктор LoggingFilter нужно передать параметр ILogger -> через DI
@@ -36,6 +36,14 @@ public class CarsController : ControllerBase
         return car != null ? Results.Ok(car) : Results.NotFound("car is not found");
     }
 
+    [HttpGet("get-services-by-car/{carId}")]
+    public async Task<IResult> GetServicesByCarId(Guid carId)
+    {
+        var services = await _carsService.GetServicesByCarId(carId);
+
+        return Results.Ok(services);
+    }
+
     [HttpGet("search")]
     public IActionResult SearchCar(string query, double price = 1)
     {
@@ -43,7 +51,6 @@ public class CarsController : ControllerBase
     }
 
     [HttpPost("add")]
-    [Authorize]
     public async Task<IResult> AddCar([FromBody] CreateCar car)
     {
         var id = await _carsService.Add(car.Brand, car.Model, car.OwnerId, car.YearRelease, car.Price);

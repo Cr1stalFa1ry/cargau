@@ -72,7 +72,7 @@ public class ServicesRepository : IServicesRepository
     {
         var serviceEntity = new ServiceEntity
         {
-            Name = service.NameService,
+            Name = service.Name,
             Price = service.Price,
             Summary = service.Summary
         };
@@ -88,7 +88,7 @@ public class ServicesRepository : IServicesRepository
         var res = await _dbContext.Services
             .Where(s => s.Id == serviceUpdate.Id)
             .ExecuteUpdateAsync(s => s
-                .SetProperty(s => s.Name, serviceUpdate.NameService)
+                .SetProperty(s => s.Name, serviceUpdate.Name)
                 .SetProperty(s => s.Price, serviceUpdate.Price)
                 .SetProperty(s => s.Summary, serviceUpdate.Summary)
             );

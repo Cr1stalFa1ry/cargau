@@ -35,6 +35,7 @@ public class RefreshTokenProvider : IRefreshTokenProvider
 
     public async Task<bool> RevokeRefreshToken(Guid userId)
     {
+        // другой пользователь не может удалить чужой токен
         if (userId != _userContextService.GetCurrentUserId())
         {
             throw new Exception("Oops, you cant do this");

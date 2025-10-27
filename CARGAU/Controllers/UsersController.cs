@@ -2,7 +2,6 @@ using API.Dto.User;
 using Core.Interfaces.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 
 namespace API.Controllers;
 
@@ -68,9 +67,6 @@ public class UsersController : ControllerBase
     [Authorize]
     public async Task<ActionResult> UpdateProfile([FromBody] UpdateProfileRequest request)
     {
-        // var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        // if (userId == null || !Guid.TryParse(userId, out var userGuid))
-        //     return Unauthorized();
         var currentUser = _httpContext.HttpContext?.User;
         if (currentUser == null)
             throw new ArgumentNullException("Пользователь не найден, нужно войти в профиль или зарегистрироваться");

@@ -9,7 +9,7 @@ public class CarEntity
     public string Model { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public string YearRelease { get; set; } = string.Empty;
-    public UserEntity Owner { get; set; } = null!;
+    public UserEntity? Owner { get; set; }
     public Guid OwnerId { get; set; }
     public List<OrderEntity> Orders { get; set; } = [];
 }

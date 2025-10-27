@@ -17,6 +17,11 @@ public class ServiceProfile : Profile
             .ForCtorParam("type", opt => opt.MapFrom(src => src.TypeTuning))
             .ForCtorParam("id", opt => opt.MapFrom(src => src.Id));
 
-        CreateMap<Service, ServiceEntity>();
+        CreateMap<Service, ServiceEntity>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
+            .ForMember(dest => dest.Summary, opt => opt.MapFrom(src => src.Summary))
+            .ForMember(dest => dest.TypeTuning, opt => opt.MapFrom(src => src.Type))
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
     }
 }

@@ -16,8 +16,6 @@ using Microsoft.EntityFrameworkCore;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using Presentation.Mappers;
-using System.Text.Json.Serialization;
-using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +37,8 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<UserProfile>();
     cfg.AddProfile<ServiceProfile>();
     cfg.AddProfile<OrderProfile>();
+    cfg.AddProfile<CarProfile>();
+    cfg.AddProfile<RoleProfile>();
 });
 
 builder.Services.AddHttpContextAccessor();

@@ -23,12 +23,23 @@ public class OrdersController : ControllerBase
         return Results.Ok(orders);
     }
 
+    /// <summary>
+    /// Получение заказа с ссылками на пользователя и машину для администратора
+    /// </summary>
     [HttpGet("get/{id}")]
     public async Task<IResult> GetOrderById(Guid id)
     {
         var orderById = await _ordersService.GetById(id);
 
         return orderById != null ? Results.Ok(orderById) : Results.NotFound("order is not found");
+    }
+
+    [HttpGet("get-services/{orderId}")]
+    public async Task<IResult> GetServicesByOrderId(Guid orderId)
+    {
+        var services = await _ordersService.GetServicesByOrderId(orderId);
+
+        return Results.Ok(services);
     }
 
     [Authorize]
@@ -38,6 +49,13 @@ public class OrdersController : ControllerBase
         var id = await _ordersService.Add(newOrder.ClientId, newOrder.CarId);
 
         return Results.Created($"orders/{id}", id);
+    }
+
+    [HttpPost("add-services")]
+    public async Task<IResult> AddServicesToOrder([FromBody] List<int> listServices, [FromQuery] Guid orderId)
+    {
+        await _ordersService.AddServices(listServices, orderId);
+        return Results.NoContent();
     }
 
     [HttpPatch("update-status/{id}")]
@@ -55,14 +73,7 @@ public class OrdersController : ControllerBase
             ? Results.NoContent() : Results.NotFound("Order is not found");
     }
 
-    [HttpPost("add-services")]
-    public async Task<IResult> AddServicesToOrder([FromBody] List<int> listServices, [FromQuery] Guid orderId)
-    {
-        await _ordersService.AddServices(listServices, orderId);
-        return Results.NoContent();
-    }
-
-    [HttpPut("delete-services")]
+    [HttpDelete("delete-services")]
     public async Task<IResult> DeleteServicesFromOrder([FromBody] List<int> listServices, [FromQuery] Guid orderId)
     {
         await _ordersService.DeleteServices(listServices, orderId);

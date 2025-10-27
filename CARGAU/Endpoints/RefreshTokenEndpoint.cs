@@ -18,11 +18,11 @@ public static class RefreshTokenEndpoint
     }
 
     private static async Task<Response> Login(
-        [FromBody] Request request,
+        [FromQuery] string refreshToken,
         [FromServices] LoggingWithRefreshToken useCase,
         HttpContext http)
     {
-        var response = await useCase.Handle(request.RefreshToken);
+        var response = await useCase.Handle(refreshToken);
 
         http.Response.Cookies.Append("cargau-cookies", response.AccessToken!, new CookieOptions() 
         {
@@ -36,6 +36,6 @@ public static class RefreshTokenEndpoint
     {   
         bool success = await useCase.RevokeRefreshToken(id);
 
-        return success ? Results.NoContent() : Results.BadRequest();   
+        return success ? Results.NoContent() : Results.BadRequest("Token was not revoked");   
     }
 }

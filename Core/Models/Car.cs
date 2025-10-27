@@ -1,5 +1,3 @@
-using System;
-
 namespace Core.Models;
 
 public class Car
@@ -23,8 +21,8 @@ public class Car
     public Guid Id { get; private set; }
     public string Brand { get; private set; } = string.Empty;
     public string Model { get; private set; } = string.Empty;
-    public string YearRelease { get; } = string.Empty;
-    public Guid OwnerId { get; }
+    public string YearRelease { get; private set; } = string.Empty;
+    public Guid OwnerId { get; private set; }
     public decimal Price { get; private set; }
 
     public static Car Create(Guid id, string brand, string model, string yearRelease, Guid ownerId, decimal price)

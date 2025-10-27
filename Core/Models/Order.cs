@@ -8,9 +8,8 @@ public class Order
         Guid clientId,
         Guid carId,
         OrderStatus status,
-        DateTime createdAt = default,
-        decimal totalPrice = 0,
-        List<Service>? selectedServices = default)
+        DateTime createdAt,
+        decimal totalPrice = 0)
     {
         Id = id;
         ClientId = clientId;
@@ -18,7 +17,6 @@ public class Order
         Status = status;
         CreatedAt = createdAt;
         TotalPrice = totalPrice;
-        SelectedServices = selectedServices;
     }
 
     public Guid Id { get; set; }
@@ -27,5 +25,4 @@ public class Order
     public OrderStatus Status { get; set; }
     public DateTime CreatedAt { get; set; }
     public decimal TotalPrice { get; set; }
-    public List<Service>? SelectedServices { get; set; }
 }

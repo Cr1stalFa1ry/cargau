@@ -25,7 +25,6 @@ public class OrdersRepository : IOrdersRepository
     {
         var orderEntities = await _dbContext.Orders
             .AsNoTracking()
-            .Include(order => order.SelectedServices)
             .ToListAsync();
 
         var orders = orderEntities
@@ -39,43 +38,39 @@ public class OrdersRepository : IOrdersRepository
     {
         var order = await _dbContext.Orders
             .AsNoTracking()
-            .Include(order => order.SelectedServices)
             .FirstOrDefaultAsync(order => order.Id == id)
             ?? throw new ArgumentException("order not found");
 
         return _mapper.Map<Order>(order);
     }
 
+    public async Task<List<Service>> GetServicesByOrderId(Guid orderId)
+    {
+        var order = await _dbContext.Orders
+            .Include(order => order.SelectedServices)
+            .FirstOrDefaultAsync(order => order.Id == orderId)
+            ?? throw new ArgumentException("order not found");
+
+        var selectedServices = order.SelectedServices
+            .Select(service => _mapper.Map<Service>(service))
+            .ToList();
+
+        return selectedServices;
+    }
+
     public async Task Add(Order order)
     {
         var client = await _dbContext.Users
-            .FirstOrDefaultAsync(user => user.Id == order.ClientId);
-        
-        if (client == null)
-        {
-            throw new ArgumentException("client not found");
-        }
+            .FirstOrDefaultAsync(user => user.Id == order.ClientId)
+            ?? throw new ArgumentException("client not found");
 
         var car = await _dbContext.Cars
-            .FirstOrDefaultAsync(car => car.Id == order.CarId);
+            .FirstOrDefaultAsync(car => car.Id == order.CarId)
+            ?? throw new ArgumentException("car not found");
 
-        if (car == null)
-        {
-            throw new ArgumentException("car not found");
-        }
-
-        var orderEntity = new OrderEntity
-        {
-            Id = order.Id,
-            Client = client,
-            ClientId = order.ClientId,
-            Car = car,
-            CarId = order.CarId,
-            CreatedAt = order.CreatedAt, // можно убрать свойство у модели,
-                                    // и просто присваивать каждый раз при создании сущности Date = DateTime.UtcNow
-            Status = order.Status
-            //SelectedServices = selectedServices
-        };
+        var orderEntity = _mapper.Map<OrderEntity>(order);
+        orderEntity.Client = client;
+        orderEntity.Car = car;
 
         await _dbContext.Orders.AddAsync(orderEntity);
         await _dbContext.SaveChangesAsync();

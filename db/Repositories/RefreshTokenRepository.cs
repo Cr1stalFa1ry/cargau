@@ -29,6 +29,6 @@ public class RefreshTokenRepository(TuningContext dbContext) : IRefreshTokenRepo
             .Where(r => r.UserId == userId)
             .ExecuteDeleteAsync();
 
-        return result == 1 ? true : false;
+        return result == 0 ? false : true;
     }
 }

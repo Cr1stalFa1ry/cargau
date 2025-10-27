@@ -1,4 +1,5 @@
 using Core.Enum;
+using Core.Models;
 using Core.Interfaces.Orders;
 
 namespace Application.Services;
@@ -24,6 +25,11 @@ public class OrdersService : IOrdersService
         return await _ordersRepository.GetById(id);
     }
 
+    public async Task<List<Service>> GetServicesByOrderId(Guid orderId)
+    {
+        return await _ordersRepository.GetServicesByOrderId(orderId);
+    }
+
     public async Task<Guid> Add(Guid clientId, Guid carId)
     {
         var order = new Order(Guid.NewGuid(), clientId, carId, OrderStatus.New, DateTime.UtcNow);
@@ -31,6 +37,11 @@ public class OrdersService : IOrdersService
         await _ordersRepository.Add(order);
 
         return order.Id;
+    }
+
+    public async Task AddServices(List<int> listServices, Guid orderId)
+    {
+        await _ordersRepository.AddServicesToOrder(listServices, orderId);
     }
 
     public async Task<bool> UpdateStatus(Guid id, OrderStatus status)
@@ -41,11 +52,6 @@ public class OrdersService : IOrdersService
     public async Task<bool> Delete(Guid id)
     {
         return await _ordersRepository.Delete(id);
-    }
-
-    public async Task AddServices(List<int> listServices, Guid orderId)
-    {
-        await _ordersRepository.AddServicesToOrder(listServices, orderId);
     }
 
     public async Task DeleteServices(List<int> listServices, Guid orderId)

@@ -23,6 +23,11 @@ public class CarsService : ICarsService
         return await _carRepository.GetById(id) ?? throw new ArgumentException("not found car");
     }
 
+    public async Task<List<Service>> GetServicesByCarId(Guid carId)
+    {
+        return await _carRepository.GetServicesByCarId(carId);
+    }
+
     public async Task<Guid> Add(string brand, string model, Guid ownerId, string yearRelease, decimal price)
     {
         var car = Car.Create(Guid.NewGuid(), brand, model, yearRelease, ownerId, price);
