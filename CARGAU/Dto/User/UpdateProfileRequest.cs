@@ -5,14 +5,15 @@ namespace API.Dto.User;
 
 public record class UpdateProfileRequest
 (
-    [Required]
-    [StringLength(50, MinimumLength = 3)]
+    [Required(ErrorMessage = "Укажите имя пользователя")]
+    [StringLength(50, ErrorMessage = "Недопустимая длина имени пользователя")]
     string NewUserName,
 
-    [Required] 
-    [EmailAddress(ErrorMessage = "Invalid email address")]
+    [Required(ErrorMessage = "Укажите электронную почту")]
+    [EmailAddress(ErrorMessage = "Некорректный формат электронной почты")]
     string NewEmail,
 
-    [Required] 
+    [Required(ErrorMessage = "Укажите роль пользователя")]
+    [Range(1, 2, ErrorMessage = "Недопустимая роль пользователя")]
     Roles Role
 );

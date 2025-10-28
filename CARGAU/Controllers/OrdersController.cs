@@ -16,7 +16,7 @@ public class OrdersController : ControllerBase
         _ordersService = ordersService;
     }
 
-    [HttpGet("get")]
+    [HttpGet("get-orders")]
     public async Task<IResult> GetOrders()
     {
         var orders = await _ordersService.Get();
@@ -26,15 +26,15 @@ public class OrdersController : ControllerBase
     /// <summary>
     /// Получение заказа с ссылками на пользователя и машину для администратора
     /// </summary>
-    [HttpGet("get/{id}")]
-    public async Task<IResult> GetOrderById(Guid id)
+    [HttpGet("{orderId}/get-order-by-id")]
+    public async Task<IResult> GetOrderById(Guid orderId)
     {
-        var orderById = await _ordersService.GetById(id);
+        var orderById = await _ordersService.GetById(orderId);
 
         return orderById != null ? Results.Ok(orderById) : Results.NotFound("order is not found");
     }
 
-    [HttpGet("get-services/{orderId}")]
+    [HttpGet("{orderId}/get-services")]
     public async Task<IResult> GetServicesByOrderId(Guid orderId)
     {
         var services = await _ordersService.GetServicesByOrderId(orderId);
@@ -58,22 +58,22 @@ public class OrdersController : ControllerBase
         return Results.NoContent();
     }
 
-    [HttpPatch("update-status/{id}")]
-    public async Task<IResult> UpdateStatusOrder(Guid id, [FromQuery] UpdateStatusOrder updateOrder)
+    [HttpPatch("{orderId}/update-status")]
+    public async Task<IResult> UpdateStatusOrder(Guid orderId, [FromQuery] UpdateStatusOrder updateOrder)
     {
-        return await _ordersService.UpdateStatus(id, updateOrder.Status)
+        return await _ordersService.UpdateStatus(orderId, updateOrder.Status)
             ? Results.NoContent() : Results.NotFound("order is not found");
     }
 
     [Authorize]
-    [HttpDelete("delete/{id}")]
-    public async Task<IResult> DeleteOrderById(Guid id)
+    [HttpDelete("{orderId}")]
+    public async Task<IResult> DeleteOrderById(Guid orderId)
     {
-        return await _ordersService.Delete(id)
+        return await _ordersService.Delete(orderId)
             ? Results.NoContent() : Results.NotFound("Order is not found");
     }
 
-    [HttpDelete("delete-services")]
+    [HttpDelete("{orderId}/selected-services")]
     public async Task<IResult> DeleteServicesFromOrder([FromBody] List<int> listServices, [FromQuery] Guid orderId)
     {
         await _ordersService.DeleteServices(listServices, orderId);

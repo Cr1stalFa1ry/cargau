@@ -1863,6 +1863,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
+          "Automapper": "15.1.0",
           "Core": "1.0.0",
           "Microsoft.AspNetCore.Http.Abstractions": "2.3.0",
           "Microsoft.EntityFrameworkCore": "9.0.4"
@@ -1889,7 +1890,7 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "Application": "1.0.0",
-          "AutoMapper": "12.0.0",
+          "AutoMapper": "15.1.0",
           "Core": "1.0.0",
           "Microsoft.AspNetCore.Authorization": "9.0.4",
           "Microsoft.AspNetCore.Identity": "2.3.1",

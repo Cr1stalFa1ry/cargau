@@ -50,19 +50,32 @@ public class CarsController : ControllerBase
         return Ok($"Ищем: {query}, цена: {price}");
     }
 
-    [HttpPost("add")]
-    public async Task<IResult> AddCar([FromBody] CreateCar car)
+    [HttpPost("add-car")]
+    public async Task<IResult> AddCar([FromBody] CreateCarRequest request)
     {
-        var id = await _carsService.Add(car.Brand, car.Model, car.OwnerId, car.YearRelease, car.Price);
+        var id = await _carsService
+            .Add(
+                request.Brand,
+                request.Model,
+                request.OwnerId,
+                request.YearRelease,
+                request.Price);
 
         return Results.Created($"cars/{id}", id);
     }
 
-    [HttpPut("update/{id}")]
-    [Authorize]
-    public async Task<IResult> UpdateCar(Guid id, [FromBody] UpdateCar updateCar)
+    [HttpPatch("car/{carId}/update/price")]
+    public async Task<IResult> UpdatePriceCar(Guid carId, [FromBody] UpdatePriceCarRequest request)
     {
-        await _carsService.Update(id, updateCar.OwnerId, updateCar.Price);
+        await _carsService.UpdatePrice(carId, request.Price);
+
+        return Results.NoContent();
+    }
+
+    [HttpPatch("car/{carId}/owner/change")]
+    public async Task<IResult> ChangeOwnerCar(Guid carId, [FromBody] UpdateOwnerCarRequest request)
+    {
+        await _carsService.ChangeOwner(carId, request.OwnerId);
 
         return Results.NoContent();
     }

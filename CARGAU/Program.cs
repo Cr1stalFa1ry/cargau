@@ -39,6 +39,7 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<OrderProfile>();
     cfg.AddProfile<CarProfile>();
     cfg.AddProfile<RoleProfile>();
+    cfg.AddProfile<UserResponseProfile>();
 });
 
 builder.Services.AddHttpContextAccessor();

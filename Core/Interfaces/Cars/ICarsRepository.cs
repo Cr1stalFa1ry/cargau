@@ -8,7 +8,8 @@ namespace Core.Interfaces.Cars
         Task<List<Car>> Get();
         Task<Car?> GetById(Guid id);
         Task<List<Service>> GetServicesByCarId(Guid carId);
-        Task Update(Car updateCar, Guid id);
+        Task UpdateOwner(Car updateCar);
+        Task UpdatePrice(Car updateCar);
         Task<bool> Delete(Guid id);
     }
 }

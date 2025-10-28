@@ -1,7 +1,9 @@
 using API.Dto.User;
+using Presentation.Mappers;
 using Core.Interfaces.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 
 namespace API.Controllers;
 
@@ -11,11 +13,16 @@ public class UsersController : ControllerBase
 {
     private readonly IUsersService _usersService;
     private readonly IHttpContextAccessor _httpContext;
+    private readonly IMapper _mapper;
     
-    public UsersController(IUsersService usersService, IHttpContextAccessor httpContext)
+    public UsersController(
+        IUsersService usersService,
+        IHttpContextAccessor httpContext,
+        IMapper mapper)
     {
         _usersService = usersService;
         _httpContext = httpContext;
+        _mapper = mapper;
     }
 
     [HttpGet("get-all-users")]
@@ -23,7 +30,7 @@ public class UsersController : ControllerBase
     public async Task<IResult> GetUsers()
     {
         var users = await _usersService.GetUsersAsync();
-        return Results.Ok(users);
+        return Results.Ok(users.Select(user => _mapper.Map<UserResponse>(user)));
     }
 
     [HttpGet("get-current-user")]
@@ -32,7 +39,7 @@ public class UsersController : ControllerBase
     {
         var user = await _usersService.GetCurrentUser();
 
-        return user != null ? Results.Ok(user) : Results.NotFound("user is not found");
+        return user != null ? Results.Ok(_mapper.Map<UserResponse>(user)) : Results.NotFound("user is not found");
     }
 
     [HttpPost("register")]

@@ -4,5 +4,6 @@ namespace API.Dto.RefreshToken;
 
 public record class Request
 (
-    [Required] string? RefreshToken
+    [Required] 
+    string? RefreshToken
 );

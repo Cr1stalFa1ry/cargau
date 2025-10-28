@@ -5,6 +5,9 @@ namespace API.Dto.Order;
 
 public record class CreateOrder
 (
-    [Required] Guid ClientId,
-    [Required] Guid CarId
+    [Required(ErrorMessage = "Укажите идентификатор пользователя")]
+    Guid ClientId,
+
+    [Required(ErrorMessage = "Укажите идентификатор услуги")] 
+    Guid CarId
 );

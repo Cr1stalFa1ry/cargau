@@ -82,23 +82,49 @@ public class CarsRepository : ICarsRepository
         }
     }
 
-    public async Task Update(Car updateCar, Guid id)
+    public async Task UpdateOwner(Car updateCar)
     {
-        var owner = await _dbContext.Users
-            .AsNoTracking()
-            .FirstOrDefaultAsync(user => user.Id == updateCar.OwnerId);
-
-        if (owner == null)
+        try
         {
-            throw new ArgumentException("owner not found");
-        }
+            var owner = await _dbContext.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(user => user.Id == updateCar.OwnerId)
+                ?? throw new ArgumentException($"user with id: {updateCar.OwnerId}, not found");
 
-        await _dbContext.Cars
-            .Where(car => car.Id == id)
-            .ExecuteUpdateAsync(car => car
-                .SetProperty(car => car.Price, updateCar.Price)
-                .SetProperty(car => car.OwnerId, updateCar.OwnerId)
-            );
+            await _dbContext.Cars
+                .Where(car => car.Id == updateCar.Id)
+                .ExecuteUpdateAsync(car => car
+                    .SetProperty(car => car.OwnerId, updateCar.OwnerId)
+                );
+        }
+        catch (ArgumentException)
+        {
+        
+        }
+        catch (Exception)
+        {
+            
+        }
+    }
+
+    public async Task UpdatePrice(Car updateCar)
+    {
+        try
+        {
+            await _dbContext.Cars
+                .Where(car => car.Id == updateCar.Id)
+                .ExecuteUpdateAsync(car => car
+                    .SetProperty(car => car.Price, updateCar.Price)
+                );
+        }
+        catch (ArgumentNullException)
+        {
+
+        }
+        catch (Exception)
+        {
+            
+        }
     }
 
     public async Task<bool> Delete(Guid id)

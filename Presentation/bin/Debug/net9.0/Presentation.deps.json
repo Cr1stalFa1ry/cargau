@@ -597,6 +597,7 @@
       "System.Text.Encodings.Web/8.0.0": {},
       "Application/1.0.0": {
         "dependencies": {
+          "AutoMapper": "15.1.0",
           "Core": "1.0.0",
           "Microsoft.AspNetCore.Http.Abstractions": "2.3.0",
           "Microsoft.EntityFrameworkCore": "9.0.4"

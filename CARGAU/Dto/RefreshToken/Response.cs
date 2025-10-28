@@ -4,6 +4,9 @@ namespace API.Dto.RefreshToken;
 
 public record class Response
 (
-    [Required] string? RefreshToken,
-    [Required] string? AccessToken
+    [Required]
+    string? RefreshToken,
+
+    [Required] 
+    string? AccessToken
 );
