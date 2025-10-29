@@ -71,7 +71,7 @@ namespace Application.Services
             var result = _passwordHasher.Verify(password, user.PasswordHash);
 
             if (!result)
-                throw new ArgumentNullException("Failed to login");
+                throw new ArgumentNullException("Не верный пароль");
 
             // создаем токены
             var token = _jwtProvider.GenerateToken(user);

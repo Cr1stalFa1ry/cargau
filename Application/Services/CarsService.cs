@@ -2,7 +2,6 @@ using Core.Interfaces.Cars;
 using Core.Models;
 
 namespace Application.Services;
-//
 
 public class CarsService : ICarsService
 {

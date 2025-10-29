@@ -74,7 +74,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpDelete("{orderId}/selected-services")]
-    public async Task<IResult> DeleteServicesFromOrder([FromBody] List<int> listServices, [FromQuery] Guid orderId)
+    public async Task<IResult> DeleteServicesFromOrder([FromBody] List<int> listServices, Guid orderId)
     {
         await _ordersService.DeleteServices(listServices, orderId);
         return Results.NoContent();
