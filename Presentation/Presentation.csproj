@@ -15,8 +15,4 @@
 	  <ProjectReference Include="..\db\db.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mappers\car\" />
-  </ItemGroup>
-
 </Project>

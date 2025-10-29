@@ -2,6 +2,7 @@ using Core.Interfaces.Cars;
 using Core.Models;
 
 namespace Application.Services;
+//
 
 public class CarsService : ICarsService
 {
@@ -28,7 +29,7 @@ public class CarsService : ICarsService
         return await _carRepository.GetServicesByCarId(carId);
     }
 
-    public async Task<Guid> Add(string brand, string model, Guid? ownerId, string yearRelease, decimal price)
+    public async Task<Guid> Add(string brand, string model, Guid ownerId, string yearRelease, decimal price)
     {
         var car = Car.Create(Guid.NewGuid(), brand, model, yearRelease, ownerId, price);
 

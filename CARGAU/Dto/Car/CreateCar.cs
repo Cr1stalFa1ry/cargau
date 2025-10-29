@@ -22,5 +22,5 @@ public record class CreateCarRequest
     string YearRelease,
 
     [Required(ErrorMessage = "Укажите валидный идентификатор владельца")]
-    Guid? OwnerId
+    Guid OwnerId
 );

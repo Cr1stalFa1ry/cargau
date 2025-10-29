@@ -19,6 +19,21 @@ using Presentation.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// builder.WebHost.ConfigureKestrel(options =>
+// {
+//     //options.ListenLocalhost(5000); // HTTP
+//     options.ListenLocalhost(5001, listenOptions =>
+//     {
+//         listenOptions.UseHttps();
+//     });
+// });
+
+
+// builder.Services.AddHttpsRedirection(options =>
+// {
+//     options.HttpsPort = 5001;
+// });
+
 // DI регистрация сервисов в контейнере
 builder.Services.AddControllers();
     
@@ -104,6 +119,8 @@ app.UseAuthentication(); // кто вы?
 app.UseAuthorization(); // какие права у вас есть?
 
 //app.RequestCulture(); // кастомный middleware для установки культуры из query параметра
+
+// app.UseHttpsRedirection();
 
 app.MapControllers();
 

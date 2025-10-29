@@ -2,7 +2,7 @@ namespace Core.Models;
 
 public class Car
 {
-    public Car(Guid id, string brand, string model, string release, Guid? ownerId, decimal price)
+    public Car(Guid id, string brand, string model, string release, Guid ownerId, decimal price)
     {
         Id = id;
         Brand = brand;
@@ -24,14 +24,16 @@ public class Car
         OwnerId = ownerId;
     }
 
+    public Car() {}
+
     public Guid Id { get; private set; }
     public string Brand { get; private set; } = string.Empty;
     public string Model { get; private set; } = string.Empty;
     public string YearRelease { get; private set; } = string.Empty;
-    public Guid? OwnerId { get; private set; }
+    public Guid OwnerId { get; private set; }
     public decimal Price { get; private set; }
 
-    public static Car Create(Guid id, string brand, string model, string yearRelease, Guid? ownerId, decimal price)
+    public static Car Create(Guid id, string brand, string model, string yearRelease, Guid ownerId, decimal price)
     {
         return new Car(id, brand, model, yearRelease, ownerId, price);
     }
