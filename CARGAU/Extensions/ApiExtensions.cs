@@ -1,7 +1,9 @@
 using System.Text;
+using Core.Enum;
 using API.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Extensions;
 
@@ -46,4 +48,13 @@ public static class ApiExtensions
 
         services.AddAuthorization();
     }
+
+    // статический метод расширения для указания разрешения на каждый endpoint
+    // public static IEndpointConventionBuilder RequirePermissions<TBuilder>(
+    //     this TBuilder builder, params Permissions[] permissions)
+    //         where TBuilder : IEndpointConventionBuilder
+    // {
+    //     return builder.RequireAuthorization(policy =>
+    //         policy.AddRequirements(new PermissionRequirement(permissions)));
+    // }
 }

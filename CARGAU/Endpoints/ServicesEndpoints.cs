@@ -11,7 +11,7 @@ public static class ServicesEndpoints
         var group = app.MapGroup("services");
 
         group.MapGet("/", Get);
-        group.MapGet("/{id:guid}", GetById);
+        group.MapGet("/{id:int}", GetById);
         group.MapGet("/{name}", GetByName);
 
         group.MapPost("/", Post);
@@ -30,7 +30,7 @@ public static class ServicesEndpoints
         return Results.Ok(services);
     }
 
-    private static async Task<IResult> GetById(Guid id, [FromServices] IServicesService service)
+    private static async Task<IResult> GetById(int id, [FromServices] IServicesService service)
     {
         var serviceById = await service.GetById(id);
 
@@ -50,22 +50,33 @@ public static class ServicesEndpoints
         [FromBody] CreateService createService, 
         [FromServices] IServicesService service)
     {
-        var id = await service.Add(createService.Name, createService.Price, createService.Summary);
+        var id = await service.Add(
+            createService.Name,
+            createService.Price,
+            createService.Summary,
+            createService.TypeTuning
+        );
 
         return Results.Created($"services/{id}", id);
     }
 
     private static async Task<IResult> Put(
-        Guid id, 
+        int id, 
         [FromBody] UpdateService updateService, 
         [FromServices] IServicesService service)
     {
-        await service.Update(id, updateService.Name, updateService.Price, updateService.Summary);
+        await service.Update(
+            id,
+            updateService.Name,
+            updateService.Price,
+            updateService.Summary,
+            updateService.TypeTuning
+        );
         
         return Results.NoContent();
     }
 
-    private static async Task<IResult> Delete(Guid id, [FromServices] IServicesService service)
+    private static async Task<IResult> Delete(int id, [FromServices] IServicesService service)
     {
         await service.Delete(id);
 

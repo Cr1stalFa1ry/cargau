@@ -1,5 +1,3 @@
-using System;
-
 namespace Core.Models;
 
 public class Car
@@ -14,25 +12,38 @@ public class Car
         OwnerId = ownerId;
     }
 
-    public Car(Guid ownerId, decimal price)
+    public Car(Guid carId, decimal price)
     {
         Price = price;
+        Id = carId;
+    }
+
+    public Car(Guid carId, Guid ownerId)
+    {
+        Id = carId;
         OwnerId = ownerId;
     }
+
+    public Car() {}
 
     public Guid Id { get; private set; }
     public string Brand { get; private set; } = string.Empty;
     public string Model { get; private set; } = string.Empty;
-    public string YearRelease { get; } = string.Empty;
-    public Guid OwnerId { get; }
+    public string YearRelease { get; private set; } = string.Empty;
+    public Guid OwnerId { get; private set; }
     public decimal Price { get; private set; }
 
     public static Car Create(Guid id, string brand, string model, string yearRelease, Guid ownerId, decimal price)
     {
         return new Car(id, brand, model, yearRelease, ownerId, price);
     }
-    public static Car Create(Guid ownerId, decimal price)
+    public static Car Create(Guid carId, decimal price)
     {
-        return new Car(ownerId, price);
+        return new Car(carId, price);
     }
+    public static Car Create(Guid carId, Guid ownerId)
+    {
+        return new Car(carId, ownerId);
+    }
+
 }

@@ -244,7 +244,7 @@
   {
     "ContainingType": "API.Endpoints.RefreshTokenEndpoint",
     "Method": "Delete",
-    "RelativePath": "users/{id:guid}/refresh-tokens",
+    "RelativePath": "users/{id}/refresh-tokens",
     "HttpMethod": "DELETE",
     "IsController": false,
     "Order": 0,
@@ -262,6 +262,16 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "API.Controllers.UsersController",
+    "Method": "GetCurrentUser",
+    "RelativePath": "Users/get-current-user",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "API.Controllers.UsersController",

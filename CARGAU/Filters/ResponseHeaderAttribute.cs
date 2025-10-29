@@ -15,7 +15,7 @@ public class ResponseHeaderAttribute : ActionFilterAttribute
 
     public override void OnActionExecuted(ActionExecutedContext context)
     {
-        context.HttpContext.Response.Headers.Add(_name, _value);
+        context.HttpContext.Response.Headers.Append(_name, _value);
         base.OnActionExecuted(context);
     }   
 }

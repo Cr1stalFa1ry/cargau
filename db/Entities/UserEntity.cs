@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace db.Entities
 {
-    public class UserEntity /*: IdentityUser*/
+    public class UserEntity
     {
         public Guid Id { get; set; }
         public string UserName { get; set; } = string.Empty;
@@ -11,6 +11,8 @@ namespace db.Entities
         public List<OrderEntity> Orders { get; set; } = [];
         public List<CarEntity> Cars { get; set; } = [];
         public List<RefreshTokenEntity> RefreshTokens { get; set; } = [];
+        public RoleEntity? Role { get; set; }
+        public int? RoleId { get; set; }
 
         // Другие свойства ...
     }

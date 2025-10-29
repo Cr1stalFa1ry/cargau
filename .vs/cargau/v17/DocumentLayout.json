@@ -3,20 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\cargau\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|c:\\users\\user\\desktop\\cargau\\cargau\\refreshtoken\\loggingwithrefreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|solutionrelative:cargau\\refreshtoken\\loggingwithrefreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F2444E3C-0AE6-4DEC-9DC8-190A6C585A7F}|db\\db.csproj|c:\\users\\user\\desktop\\cargau\\db\\repositories\\usersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2444E3C-0AE6-4DEC-9DC8-190A6C585A7F}|db\\db.csproj|solutionrelative:db\\repositories\\usersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|c:\\users\\user\\desktop\\cargau\\cargau\\refreshtoken\\refreshtokenprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|solutionrelative:cargau\\refreshtoken\\refreshtokenprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|c:\\users\\user\\desktop\\cargau\\cargau\\extensions\\apiextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|solutionrelative:cargau\\extensions\\apiextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2444E3C-0AE6-4DEC-9DC8-190A6C585A7F}|db\\db.csproj|c:\\users\\user\\desktop\\cargau\\db\\options\\permissionauthorizationhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2444E3C-0AE6-4DEC-9DC8-190A6C585A7F}|db\\db.csproj|solutionrelative:db\\options\\permissionauthorizationhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2444E3C-0AE6-4DEC-9DC8-190A6C585A7F}|db\\db.csproj|c:\\users\\user\\desktop\\cargau\\db\\options\\permissionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2444E3C-0AE6-4DEC-9DC8-190A6C585A7F}|db\\db.csproj|solutionrelative:db\\options\\permissionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40FC1EF7-C209-4786-BF74-5994B191CAB0}|Core\\Core.csproj|c:\\users\\user\\desktop\\cargau\\core\\interfaces\\permissions\\ipermissionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40FC1EF7-C209-4786-BF74-5994B191CAB0}|Core\\Core.csproj|solutionrelative:core\\interfaces\\permissions\\ipermissionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40FC1EF7-C209-4786-BF74-5994B191CAB0}|Core\\Core.csproj|c:\\users\\user\\desktop\\cargau\\core\\interfaces\\users\\iusersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40FC1EF7-C209-4786-BF74-5994B191CAB0}|Core\\Core.csproj|solutionrelative:core\\interfaces\\users\\iusersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2444E3C-0AE6-4DEC-9DC8-190A6C585A7F}|db\\db.csproj|c:\\users\\user\\desktop\\cargau\\db\\options\\authorizationoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2444E3C-0AE6-4DEC-9DC8-190A6C585A7F}|db\\db.csproj|solutionrelative:db\\options\\authorizationoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|c:\\users\\user\\desktop\\cargau\\cargau\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|solutionrelative:cargau\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|c:\\users\\user\\desktop\\cargau\\cargau\\endpoints\\refreshtokenendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{68A33B90-84B9-4DD9-B8C3-608631C55B4E}|CARGAU\\API.csproj|solutionrelative:cargau\\endpoints\\refreshtokenendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,62 +42,118 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RefreshTokenEndpoint.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\Endpoints\\RefreshTokenEndpoint.cs",
-              "RelativeDocumentMoniker": "CARGAU\\Endpoints\\RefreshTokenEndpoint.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\Endpoints\\RefreshTokenEndpoint.cs",
-              "RelativeToolTip": "CARGAU\\Endpoints\\RefreshTokenEndpoint.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-15T21:57:34.821Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\Program.cs",
               "RelativeDocumentMoniker": "CARGAU\\Program.cs",
               "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\Program.cs",
               "RelativeToolTip": "CARGAU\\Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAiwCEAAABTAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-15T18:45:58.025Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IUsersRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\Core\\Interfaces\\Users\\IUsersRepository.cs",
+              "RelativeDocumentMoniker": "Core\\Interfaces\\Users\\IUsersRepository.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\Core\\Interfaces\\Users\\IUsersRepository.cs",
+              "RelativeToolTip": "Core\\Interfaces\\Users\\IUsersRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T20:36:35.82Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "LoggingWithRefreshToken.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\refreshToken\\LoggingWithRefreshToken.cs",
-              "RelativeDocumentMoniker": "CARGAU\\refreshToken\\LoggingWithRefreshToken.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\refreshToken\\LoggingWithRefreshToken.cs",
-              "RelativeToolTip": "CARGAU\\refreshToken\\LoggingWithRefreshToken.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAB8AAAAuAAAAAAAAAA==",
+              "Title": "UsersRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\db\\Repositories\\UsersRepository.cs",
+              "RelativeDocumentMoniker": "db\\Repositories\\UsersRepository.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\db\\Repositories\\UsersRepository.cs",
+              "RelativeToolTip": "db\\Repositories\\UsersRepository.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAUwCgAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-15T21:54:26.097Z",
+              "WhenOpened": "2025-10-01T08:25:32.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IPermissionService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\Core\\Interfaces\\Permissions\\IPermissionService.cs",
+              "RelativeDocumentMoniker": "Core\\Interfaces\\Permissions\\IPermissionService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\Core\\Interfaces\\Permissions\\IPermissionService.cs",
+              "RelativeToolTip": "Core\\Interfaces\\Permissions\\IPermissionService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T20:26:32.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PermissionService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\db\\Options\\PermissionService.cs",
+              "RelativeDocumentMoniker": "db\\Options\\PermissionService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\db\\Options\\PermissionService.cs",
+              "RelativeToolTip": "db\\Options\\PermissionService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T20:25:26.644Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PermissionAuthorizationHandler.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\db\\Options\\PermissionAuthorizationHandler.cs",
+              "RelativeDocumentMoniker": "db\\Options\\PermissionAuthorizationHandler.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\db\\Options\\PermissionAuthorizationHandler.cs",
+              "RelativeToolTip": "db\\Options\\PermissionAuthorizationHandler.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAAAgAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T20:15:31.722Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AuthorizationOptions.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\db\\Options\\AuthorizationOptions.cs",
+              "RelativeDocumentMoniker": "db\\Options\\AuthorizationOptions.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\db\\Options\\AuthorizationOptions.cs",
+              "RelativeToolTip": "db\\Options\\AuthorizationOptions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T07:19:24.452Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "RefreshTokenProvider.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\refreshToken\\RefreshTokenProvider.cs",
-              "RelativeDocumentMoniker": "CARGAU\\refreshToken\\RefreshTokenProvider.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\refreshToken\\RefreshTokenProvider.cs",
-              "RelativeToolTip": "CARGAU\\refreshToken\\RefreshTokenProvider.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAADIAAAAFAAAAAAAAAA==",
+              "Title": "ApiExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\Extensions\\ApiExtensions.cs",
+              "RelativeDocumentMoniker": "CARGAU\\Extensions\\ApiExtensions.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\cargau\\CARGAU\\Extensions\\ApiExtensions.cs",
+              "RelativeToolTip": "CARGAU\\Extensions\\ApiExtensions.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAADwvzUAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T22:15:56.507Z",
+              "WhenOpened": "2025-10-01T07:06:45.299Z",
               "EditorCaption": ""
             }
           ]

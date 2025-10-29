@@ -27,14 +27,29 @@ namespace db.Migrations
                     b.Property<Guid>("OrdersId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("SelectedServicesId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("SelectedServicesId")
+                        .HasColumnType("integer");
 
                     b.HasKey("OrdersId", "SelectedServicesId");
 
                     b.HasIndex("SelectedServicesId");
 
                     b.ToTable("OrderEntityServiceEntity");
+                });
+
+            modelBuilder.Entity("PermissionEntityRoleEntity", b =>
+                {
+                    b.Property<int>("PermissionsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RolesId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("PermissionsId", "RolesId");
+
+                    b.HasIndex("RolesId");
+
+                    b.ToTable("PermissionEntityRoleEntity");
                 });
 
             modelBuilder.Entity("db.Entities.CarEntity", b =>
@@ -80,12 +95,15 @@ namespace db.Migrations
                     b.Property<Guid>("ClientId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -94,6 +112,45 @@ namespace db.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("db.Entities.PermissionEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PermissionEntity");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Read"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Create"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Update"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Delete"
+                        });
                 });
 
             modelBuilder.Entity("db.Entities.RefreshTokenEntity", b =>
@@ -123,11 +180,42 @@ namespace db.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
+            modelBuilder.Entity("db.Entities.RoleEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User"
+                        });
+                });
+
             modelBuilder.Entity("db.Entities.ServiceEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -141,6 +229,9 @@ namespace db.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
+
+                    b.Property<int>("TypeTuning")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -161,11 +252,16 @@ namespace db.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -181,6 +277,21 @@ namespace db.Migrations
                     b.HasOne("db.Entities.ServiceEntity", null)
                         .WithMany()
                         .HasForeignKey("SelectedServicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PermissionEntityRoleEntity", b =>
+                {
+                    b.HasOne("db.Entities.PermissionEntity", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("db.Entities.RoleEntity", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -226,9 +337,23 @@ namespace db.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("db.Entities.UserEntity", b =>
+                {
+                    b.HasOne("db.Entities.RoleEntity", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId");
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("db.Entities.CarEntity", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("db.Entities.RoleEntity", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("db.Entities.UserEntity", b =>

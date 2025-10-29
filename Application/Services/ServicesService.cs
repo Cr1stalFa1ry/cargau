@@ -1,5 +1,6 @@
 using Core.Interfaces.Services;
 using Core.Models;
+using Core.Enum;
 
 namespace Application.Services;
 
@@ -17,7 +18,7 @@ public class ServicesService : IServicesService
         return await _repository.Get();
     }
 
-    public async Task<Service> GetById(Guid id)
+    public async Task<Service> GetById(int id)
     {
         return await _repository.GetById(id);
     }
@@ -27,21 +28,21 @@ public class ServicesService : IServicesService
         return await _repository.GetByName(name);
     }
 
-    public async Task<Guid> Add(string name, decimal price, string summary)
+    public async Task<int> Add(string name, decimal price, string summary, TypeTuning type)
     {
-        var newService = Service.Create(name, price, summary);
+        var newService = new Service(name, price, summary, type);
 
         return await _repository.Add(newService);
     }
 
-    public async Task Update(Guid id, string name, decimal price, string summary)
+    public async Task Update(int id, string name, decimal price, string summary, TypeTuning type = TypeTuning.TechTuning)
     {
-        var updateService = Service.Create(id, name, price, summary);
+        var updateService = new Service(name, price, summary, type, id);
 
         await _repository.Update(updateService);
     }
 
-    public async Task Delete(Guid id)
+    public async Task Delete(int id)
     {
         await _repository.Delete(id);
     }

@@ -1,8 +1,14 @@
-using System;
+using AutoMapper;
+using db.Entities;
 
 namespace Presentation.Mappers;
 
-public class OrderProfile
+public class OrderProfile : Profile
 {
+    public OrderProfile() 
+    {
+        CreateMap<OrderEntity, Order>();
 
+        CreateMap<Order, OrderEntity>();
+    }
 }

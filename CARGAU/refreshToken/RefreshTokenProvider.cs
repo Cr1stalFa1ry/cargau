@@ -3,17 +3,20 @@ using System.Security.Cryptography;
 using Core.Interfaces.IRefreshToken;
 using Core.Interfaces.Users;
 using Core.Models;
+using db.Entities;
 
 namespace API.refreshToken;
 
 public class RefreshTokenProvider : IRefreshTokenProvider
 {
     private readonly IRefreshTokenRepository _rtRep;
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    public RefreshTokenProvider(IRefreshTokenRepository rtRep, IHttpContextAccessor httpContextAccessor)
+    private readonly IUserContextService _userContextService;
+    public RefreshTokenProvider(
+        IRefreshTokenRepository rtRep, 
+        IUserContextService userContextService)
     {
         _rtRep = rtRep;
-        _httpContextAccessor = httpContextAccessor;
+        _userContextService = userContextService;
     }
 
     public RefreshToken GenerateRefreshToken(User user)
@@ -32,7 +35,8 @@ public class RefreshTokenProvider : IRefreshTokenProvider
 
     public async Task<bool> RevokeRefreshToken(Guid userId)
     {
-        if (userId != GetCurrentUser())
+        // другой пользователь не может удалить чужой токен
+        if (userId != _userContextService.GetCurrentUserId())
         {
             throw new Exception("Oops, you cant do this");
         }
@@ -40,13 +44,5 @@ public class RefreshTokenProvider : IRefreshTokenProvider
         var res = await _rtRep.DeleteToken(userId);
 
         return res;
-    }
-
-    public Guid? GetCurrentUser()
-    {
-        return Guid.TryParse(
-            _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier), 
-            out Guid parsed)
-            ? parsed : null;
     }
 }

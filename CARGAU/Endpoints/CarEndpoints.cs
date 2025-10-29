@@ -17,7 +17,7 @@ public static class CarEndpoints
 
         group.MapPost("/", Add);
 
-        group.MapPut("/{id}", Update);
+        //group.MapPut("/{id}", Update);
 
         group.MapDelete("/{id}", DeleteById);
 
@@ -39,7 +39,7 @@ public static class CarEndpoints
     }
 
     private static async Task<IResult> Add(
-        [FromBody] CreateCar car, 
+        [FromBody] CreateCarRequest car, 
         [FromServices] ICarsService carService)
     {
         var id = await carService.Add(car.Brand, car.Model, car.OwnerId, car.YearRelease, car.Price);
@@ -47,15 +47,15 @@ public static class CarEndpoints
         return Results.Created($"cars/{id}", id);
     }
 
-    private static async Task<IResult> Update(
-        Guid id, 
-        [FromBody] UpdateCar updateCar, 
-        [FromServices] ICarsService carService)
-    {
-        await carService.Update(id, updateCar.OwnerId, updateCar.Price);
+    // private static async Task<IResult> Update(
+    //     Guid id, 
+    //     [FromBody] UpdateCar updateCar, 
+    //     [FromServices] ICarsService carService)
+    // {
+    //     await carService.Update(id, updateCar.OwnerId, updateCar.Price);
 
-        return Results.NoContent(); 
-    }
+    //     return Results.NoContent(); 
+    // }
 
     private static async Task<IResult> DeleteById(Guid id, [FromServices] ICarsService carService)
     {

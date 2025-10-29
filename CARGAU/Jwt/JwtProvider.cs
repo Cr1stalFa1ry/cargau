@@ -25,7 +25,8 @@ namespace API.Jwt
             Claim[] claims = [new("userId", user.Id.ToString()),
                               new("userName", user.UserName),
                               new("passwordHash", user.PasswordHash),
-                              new("email", user.Email)];
+                              new("email", user.Email),
+                              new("role", user.Role.ToString())];
 
             // алгоритм кодировки токена
             var signingCredentials = new SigningCredentials(
@@ -36,7 +37,7 @@ namespace API.Jwt
             var token = new JwtSecurityToken(
                 claims: claims,
                 signingCredentials: signingCredentials,
-                expires: DateTime.UtcNow.AddHours(_options.ExpiteHours)
+                expires: DateTime.UtcNow.AddMinutes(_options.ExpiteMinutes)
             );
 
             var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);

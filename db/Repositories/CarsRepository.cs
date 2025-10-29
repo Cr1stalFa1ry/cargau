@@ -3,30 +3,27 @@ using Core.Interfaces.Cars;
 using db.Entities;
 using db.Context;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace db.Repositories;
 
 public class CarsRepository : ICarsRepository
 {
     private readonly TuningContext _dbContext;
+    private readonly IMapper _mapper;
+    private readonly ILogger<CarsRepository> _logger;
 
-    public CarsRepository(TuningContext dbContext)
+    public CarsRepository(TuningContext dbContext, IMapper mapper, ILogger<CarsRepository> logger)
     {
         _dbContext = dbContext;
+        _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task Add(Car car)
     {
-        var carEntity = new CarEntity
-        {
-            Id = car.Id,
-            Brand = car.Brand,
-            Model = car.Model,
-            Price = car.Price,
-            YearRelease = car.YearRelease,
-            OwnerId = car.OwnerId
-        };
-
+        var carEntity = _mapper.Map<CarEntity>(car);
 
         await _dbContext.Cars.AddAsync(carEntity);
         await _dbContext.SaveChangesAsync();
@@ -39,7 +36,7 @@ public class CarsRepository : ICarsRepository
             .ToListAsync();
 
         var cars = carEntities
-            .Select(c => Car.Create(c.Id, c.Brand, c.Model, c.YearRelease, c.OwnerId, c.Price))
+            .Select(car => _mapper.Map<Car>(car))
             .ToList();
 
         return cars;
@@ -49,35 +46,85 @@ public class CarsRepository : ICarsRepository
     {
         var car = await _dbContext.Cars
             .AsNoTracking()
-            .FirstOrDefaultAsync(car => car.Id == id);
+            .FirstOrDefaultAsync(car => car.Id == id)
+            ?? throw new ArgumentException("cat not found");
 
-        if (car == null)
-        {
-            throw new ArgumentException("cat not found");
-        }
-        // нужно обработать ситуацию когда метод
-        // FirstOrDefaultAsync вернет дефолтное значение сущности,
-        // так как он не смог найти найти ее по id
-        return Car.Create(car.Id, car.Brand, car.Model, car.YearRelease, car.OwnerId, car.Price);
+        return _mapper.Map<Car>(car);
     }
 
-    public async Task Update(Car updateCar, Guid id)
+    public async Task<List<Service>> GetServicesByCarId(Guid carId)
     {
-        var owner = await _dbContext.Users
-            .AsNoTracking()
-            .FirstOrDefaultAsync(user => user.Id == updateCar.OwnerId);
-
-        if (owner == null)
+        try
         {
-            throw new ArgumentException("owner not found");
-        }
+            // загружаем только услуги, без необходимости загрузки заказов
+            var serviceEntities = await _dbContext.Orders
+                .Include(order => order.SelectedServices)
+                .Where(order => order.CarId == carId)
+                .SelectMany(order => order.SelectedServices)
+                .ToListAsync();
+            
+            if (serviceEntities.Count == 0)
+            {
+                return new List<Service>();
+            }
 
-        await _dbContext.Cars
-            .Where(car => car.Id == id)
-            .ExecuteUpdateAsync(car => car
-                .SetProperty(car => car.Price, updateCar.Price)
-                .SetProperty(car => car.OwnerId, updateCar.OwnerId)
-            );
+            var mappedServices = serviceEntities
+                .Select(service => _mapper.Map<Service>(service))
+                .DistinctBy(service => service.Id)
+                .ToList();
+
+            return mappedServices;
+        }
+        catch(Exception)
+        {
+            _logger.LogError("Error retrieving services for car with ID {CarId}", carId);
+            throw;
+        }
+    }
+
+    public async Task UpdateOwner(Car updateCar)
+    {
+        try
+        {
+            var owner = await _dbContext.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(user => user.Id == updateCar.OwnerId)
+                ?? throw new ArgumentException($"user with id: {updateCar.OwnerId}, not found");
+
+            await _dbContext.Cars
+                .Where(car => car.Id == updateCar.Id)
+                .ExecuteUpdateAsync(car => car
+                    .SetProperty(car => car.OwnerId, updateCar.OwnerId)
+                );
+        }
+        catch (ArgumentException)
+        {
+        
+        }
+        catch (Exception)
+        {
+            
+        }
+    }
+
+    public async Task UpdatePrice(Car updateCar)
+    {
+        try
+        {
+            await _dbContext.Cars
+                .Where(car => car.Id == updateCar.Id)
+                .ExecuteUpdateAsync(car => car
+                    .SetProperty(car => car.Price, updateCar.Price)
+                );
+        }
+        catch (ArgumentNullException)
+        {
+
+        }
+        catch (Exception)
+        {
+            
+        }
     }
 
     public async Task<bool> Delete(Guid id)

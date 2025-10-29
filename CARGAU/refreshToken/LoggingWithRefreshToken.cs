@@ -4,14 +4,18 @@ using db.Entities;
 using db.Context;
 using Microsoft.EntityFrameworkCore;
 using Core.Models;
+using Core.Interfaces.IRefreshToken;
+using AutoMapper;
 
 
 namespace API.refreshToken;
 
-internal sealed class LoggingWithRefreshToken(
+public sealed class LoggingWithRefreshToken(
     TuningContext dbContext,
     IRefreshTokenProvider provider,
-    IJwtProvider jwtProvider)
+    IJwtProvider jwtProvider,
+    IRefreshTokenRepository refreshTokenRepository,
+    IMapper mapper)
 {
     public async Task<Response> Handle(string? RefreshToken)
     {
@@ -19,24 +23,17 @@ internal sealed class LoggingWithRefreshToken(
             .Include(rt => rt.User)
             .FirstOrDefaultAsync(rt => rt.Token.Equals(RefreshToken));
 
-        if (refreshToken is null)
-            throw new Exception("Refresh token больше не действителен");
+        if (refreshToken is null || refreshToken.ExpiresOnUtc <= DateTime.UtcNow)
+            throw new ArgumentNullException("Refresh token больше не действителен");
 
-        var accessToken = jwtProvider.GenerateToken(ToUserModel(refreshToken.User)); // передаем пользователя и получаем новый токен доступа
+        // передаем пользователя и получаем новый токен доступа
+        var accessToken = jwtProvider.GenerateToken(mapper.Map<User>(refreshToken.User)); 
 
-        refreshToken.Token = provider.GenerateToken(); // создаем новый токен доступа
-        refreshToken.ExpiresOnUtc = DateTime.UtcNow.AddDays(7); // добавляем время жизни токена
+        RefreshToken? rt = provider.GenerateRefreshToken(mapper.Map<User>(refreshToken.User));
 
-        return new Response()
-        {
-            RefreshToken = refreshToken.Token,
-            AccessToken = accessToken
-        };
+         // добавляем токен в базу данных
+        await refreshTokenRepository.AddToken(rt);
+
+        return new Response(rt.Token, accessToken);
     }
-
-    public User ToUserModel(UserEntity? user)
-    {
-        return new User(user.Id, user.UserName, user.PasswordHash, user.Email);
-    }
-
 }

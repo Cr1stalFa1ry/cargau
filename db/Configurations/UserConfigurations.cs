@@ -20,5 +20,9 @@ public class UserConfigurations : IEntityTypeConfiguration<UserEntity>
             .HasMany<CarEntity>(user => user.Cars)
             .WithOne(car => car.Owner)
             .HasForeignKey(car => car.OwnerId);
+
+        builder.HasOne(u => u.Role)
+            .WithMany(r => r.Users)
+            .HasForeignKey(u => u.RoleId);
     }
 }

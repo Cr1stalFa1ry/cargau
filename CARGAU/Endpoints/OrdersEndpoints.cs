@@ -15,7 +15,7 @@ public static class OrdersEndpoints
 
         group.MapPost("/", Add);
 
-        group.MapPut("/{id}", Update);
+        //group.MapPut("/{id}", Update);
 
         group.MapDelete("/{id}", Delete);
 
@@ -45,14 +45,14 @@ public static class OrdersEndpoints
         return Results.Created($"/orders/{id}", id);
     }
 
-    private static async Task<IResult> Update(
-        Guid id,
-        [FromBody] UpdateOrder updateOrder,
-        [FromServices] IOrdersService ordersService)
-    {
-        return await ordersService.Update(id, updateOrder.ClientId, updateOrder.CarId, updateOrder.Status)
-            ? Results.NoContent() : Results.NotFound("Order is not found");
-    }
+    // private static async Task<IResult> Update(
+    //     Guid id,
+    //     [FromBody] UpdateOrder updateOrder,
+    //     [FromServices] IOrdersService ordersService)
+    // {
+    //     return await ordersService.Update(id, updateOrder.ClientId, updateOrder.CarId, updateOrder.Status)
+    //         ? Results.NoContent() : Results.NotFound("Order is not found");
+    // }
 
     private static async Task<IResult> Delete(Guid id, [FromServices] IOrdersService ordersService)
     {
